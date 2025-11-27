@@ -1,121 +1,118 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Header from './components/Header'    // ПРАВИЛЬНЫЙ ИМПОРТ
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./components/Header";
+import { useAppContext } from "./context/AppContext.jsx";
 
-// Создаем компонент регистрации
 const Registration = () => {
+  const [errors, setErrors] = useState("");
+  const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
+  const { registerUser } = useAppContext();
 
-    // ошибки
-    const [errors, setErrors] = useState(null)
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-    // навигация
-    const navigate = useNavigate()
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    // сохранение-отслеживание состояния полей
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: ''
-    })
+  const handleInputSubmit = (e) => {
+    e.preventDefault();
+    setErrors("");
 
-    // ручной обработчик событий на изменение полей
-    const handleInputChange = (e) => {
-        const { name, value } = e.target
-        setFormData({ ...formData, [name]: value })
+    if (formData.password.length < 6) {
+      setErrors("Пароль должен содержать минимум 6 символов");
+      return;
     }
 
-    // обработчик отправки формы (async)
-    const handleInputSubmit = async (e) => {
-        e.preventDefault()
-
-        try {
-            // отправка запроса на backend
-            const response = await fetch('http://localhost:5000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: formData.username,
-                    email: formData.email,
-                    password: formData.password
-                })
-            })
-
-            const data = await response.json()
-
-            // если ошибка сервера
-            if (!response.ok) {
-                throw new Error(data.error || data.message || "Ошибка регистрации")
-            }
-
-            // если все ок → сохраняем токен
-            localStorage.setItem('token', data.token)
-
-            // переход на страницу логина
-            navigate('/login')
-
-        } catch (error) {
-            // ловим и выводим ошибку
-            setErrors(error.message)
-        }
+    try {
+      registerUser(formData);
+      setSuccess("Аккаунт создан! Мы уже авторизовали вас.");
+      setTimeout(() => navigate("/"), 1200);
+    } catch (error) {
+      setErrors(error.message);
     }
+  };
 
-    return (
-        <div>
-            <Header />
+  return (
+    <div className="bg-black min-h-screen text-white">
+      <Header />
 
-            <section className="bg-black flex justify-center p-10">
-                <h2 className="text-white p-5 text-4xl">Регистрация</h2>
+      <section className="pt-24 pb-14 flex justify-center px-4">
+        <div className="bg-zinc-900 border border-orange-500/30 rounded-2xl p-8 w-full max-w-xl shadow-[0_20px_70px_-40px_rgba(0,0,0,1)]">
+          <h2 className="text-3xl font-extrabold mb-2 text-center">Регистрация</h2>
+          <p className="text-gray-300 text-sm text-center mb-6">
+            Создайте аккаунт, чтобы бронировать услуги и оплачивать софт.
+          </p>
 
-                {errors && (
-                    <p className="text-red-500 text-xl">{errors}</p>
-                )}
+          {errors && <p className="text-red-400 text-sm mb-4 text-center">{errors}</p>}
+          {success && <p className="text-green-400 text-sm mb-4 text-center">{success}</p>}
 
-                <section className="bg-black flex justify-center">
-                    <form
-                        className="p-10 bg-blue-300 flex flex-col gap-5 rounded-[20px]"
-                        onSubmit={handleInputSubmit}
-                    >
-                        {/* поля */}
-                        <input
-                            type="text"
-                            name="username"
-                            className="text-black w-[300px] h-[50px] rounded-[30px] p-4"
-                            placeholder="Никнейм"
-                            onChange={handleInputChange}
-                            value={formData.username}
-                            required
-                        />
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={handleInputSubmit}
+          >
+            <label className="flex flex-col gap-2 text-sm text-gray-200">
+              Никнейм
+              <input
+                type="text"
+                name="username"
+                className="text-white w-full rounded-xl p-3 bg-black border border-zinc-700 focus:border-orange-500 outline-none"
+                placeholder="Ваш творческий псевдоним"
+                onChange={handleInputChange}
+                value={formData.username}
+                required
+              />
+            </label>
 
-                        <input
-                            type="email"
-                            name="email"
-                            className="text-black w-[300px] h-[50px] rounded-[30px] p-4"
-                            placeholder="Email"
-                            onChange={handleInputChange}
-                            value={formData.email}
-                            required
-                        />
+            <label className="flex flex-col gap-2 text-sm text-gray-200">
+              Email
+              <input
+                type="email"
+                name="email"
+                className="text-white w-full rounded-xl p-3 bg-black border border-zinc-700 focus:border-orange-500 outline-none"
+                placeholder="artist@mail.ru"
+                onChange={handleInputChange}
+                value={formData.email}
+                required
+              />
+            </label>
 
-                        <input
-                            type="password"
-                            name="password"
-                            className="text-black w-[300px] h-[50px] rounded-[30px] p-4"
-                            placeholder="Пароль"
-                            onChange={handleInputChange}
-                            value={formData.password}
-                            required
-                        />
+            <label className="flex flex-col gap-2 text-sm text-gray-200">
+              Пароль
+              <input
+                type="password"
+                name="password"
+                className="text-white w-full rounded-xl p-3 bg-black border border-zinc-700 focus:border-orange-500 outline-none"
+                placeholder="Минимум 6 символов"
+                onChange={handleInputChange}
+                value={formData.password}
+                required
+              />
+            </label>
 
-                        <button className="bg-blue-500 text-black p-5 w-[250px] h-[80px] rounded-[20px]">
-                            Создать аккаунт
-                        </button>
-                    </form>
-                </section>
-            </section>
+            <button className="mt-2 bg-gradient-to-r from-orange-500 to-orange-600 text-black font-semibold py-3 rounded-xl uppercase tracking-wide shadow-[0_12px_30px_-10px_rgba(249,115,22,0.8)] hover:scale-[1.01] transition">
+              Создать аккаунт
+            </button>
+          </form>
+
+          <p className="text-xs text-gray-400 mt-4 text-center">
+            Уже есть аккаунт?{' '}
+            <button
+              className="text-orange-400 hover:text-orange-300"
+              onClick={() => navigate("/login")}
+            >
+              Войдите
+            </button>
+          </p>
         </div>
-    )
-}
+      </section>
+    </div>
+  );
+};
 
-export default Registration
+export default Registration;

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../img/logo-rackext-svgrepo-com.svg";
 import { Menu, X, ShoppingCart, User } from "lucide-react";
+import { useAppContext } from "../context/AppContext.jsx";
 
 export default function Header() {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const { user, cart, logout } = useAppContext();
 
   useEffect(() => {
     let lastScroll = 0;
@@ -20,10 +22,9 @@ export default function Header() {
   }, []);
 
   const handleNavigation = (path) => {
-    const token = localStorage.getItem("token");
     const protectedRoutes = ["/profile", "/transit"];
 
-    if (protectedRoutes.includes(path) && !token) {
+    if (protectedRoutes.includes(path) && !user?.token) {
       const confirmLogin = window.confirm(
         "Войдите или зарегистрируйтесь для доступа к ресурсу"
       );
@@ -34,13 +35,7 @@ export default function Header() {
     navigate(path);
   };
 
-  const isAuth = !!localStorage.getItem("token");
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-    window.location.reload();
-  };
+  const isAuth = !!user?.token;
 
   const navItems = [
     { label: "Главная", path: "/" },
@@ -96,7 +91,14 @@ export default function Header() {
             className="hover:text-orange-400 transition"
             onClick={() => navigate("/cart")}
           >
-            <ShoppingCart size={22} />
+            <div className="relative">
+              <ShoppingCart size={22} />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-orange-500 text-black text-[10px] font-bold rounded-full px-1.5 py-0.5">
+                  {cart.reduce((sum, item) => sum + item.quantity, 0)}
+                </span>
+              )}
+            </div>
           </button>
 
           <button
@@ -107,12 +109,18 @@ export default function Header() {
           </button>
 
           {isAuth ? (
-            <button
-              className="ml-2 text-xs font-medium uppercase tracking-wide text-gray-300 hover:text-orange-400 transition"
-              onClick={logout}
-            >
-              Выйти
-            </button>
+            <div className="flex items-center gap-3">
+              <div className="text-xs text-gray-400">{user?.username}</div>
+              <button
+                className="ml-2 text-xs font-medium uppercase tracking-wide text-gray-300 hover:text-orange-400 transition"
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
+              >
+                Выйти
+              </button>
+            </div>
           ) : (
             <>
               <button

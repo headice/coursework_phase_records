@@ -2,6 +2,7 @@ import React from "react";
 import "./input.css";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import { useAppContext } from "./context/AppContext.jsx";
 
 // Картинки услуг (те же, что используются в Services.jsx)
 import arr from "./img/arr.jpg";
@@ -107,6 +108,7 @@ const plugins = [
 ];
 
 const Shop = () => {
+  const { addToCart } = useAppContext();
   return (
     <div className="bg-black text-white font-sans min-h-screen flex flex-col">
       <Header />
@@ -214,8 +216,18 @@ const Shop = () => {
                         </span>
                       </div>
 
-                      <button className="px-4 py-2 rounded-full bg-orange-500 hover:bg-orange-600 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition-colors">
-                        Оставить заявку
+                      <button
+                        className="px-4 py-2 rounded-full bg-orange-500 hover:bg-orange-600 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition-colors"
+                        onClick={() =>
+                          addToCart({
+                            id: service.id,
+                            type: "service",
+                            name: service.title,
+                            price: service.from,
+                          })
+                        }
+                      >
+                        В корзину
                       </button>
                     </div>
                   </div>
@@ -289,7 +301,17 @@ const Shop = () => {
                         </span>
                       </div>
 
-                      <button className="px-4 py-2 rounded-full bg-orange-500 hover:bg-orange-600 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition-colors">
+                      <button
+                        className="px-4 py-2 rounded-full bg-orange-500 hover:bg-orange-600 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition-colors"
+                        onClick={() =>
+                          addToCart({
+                            id: plugin.id,
+                            type: "plugin",
+                            name: plugin.name,
+                            price: plugin.price,
+                          })
+                        }
+                      >
                         В корзину
                       </button>
                     </div>
