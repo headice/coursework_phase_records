@@ -1,121 +1,147 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Header from './components/Header'    // ПРАВИЛЬНЫЙ ИМПОРТ
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import "./input.css";
 
-// Создаем компонент регистрации
+const initialState = {
+  username: "",
+  email: "",
+  password: "",
+};
+
 const Registration = () => {
+  const [formData, setFormData] = useState(initialState);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-    // ошибки
-    const [errors, setErrors] = useState(null)
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    // навигация
-    const navigate = useNavigate()
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    localStorage.setItem("token", "phase-demo-token");
+    localStorage.setItem("username", formData.username || "Гость");
+    setMessage("Аккаунт создан! Можно переходить в профиль или к бронированию.");
+    setFormData(initialState);
+    setTimeout(() => navigate("/profile"), 600);
+  };
 
-    // сохранение-отслеживание состояния полей
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: ''
-    })
+  return (
+    <div className="bg-black text-white font-sans min-h-screen flex flex-col">
+      <Header />
 
-    // ручной обработчик событий на изменение полей
-    const handleInputChange = (e) => {
-        const { name, value } = e.target
-        setFormData({ ...formData, [name]: value })
-    }
+      <main className="flex-1">
+        <section className="relative w-full overflow-hidden border-b border-orange-500/20">
+          <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(249,115,22,0.15),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(249,115,22,0.12),transparent_30%)]" />
 
-    // обработчик отправки формы (async)
-    const handleInputSubmit = async (e) => {
-        e.preventDefault()
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-10">
+            <div className="space-y-4 max-w-2xl">
+              <p className="text-[11px] uppercase tracking-[0.26em] text-orange-400">регистрация</p>
+              <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
+                Создайте аккаунт
+                <span className="block text-orange-500">Phase Records</span>
+              </h1>
+              <p className="text-sm sm:text-base text-gray-300">
+                Аккаунт нужен, чтобы сохранять бронирования, получать чек-листы и быстрее возвращаться к проектам.
+              </p>
+            </div>
 
-        try {
-            // отправка запроса на backend
-            const response = await fetch('http://localhost:5000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: formData.username,
-                    email: formData.email,
-                    password: formData.password
-                })
-            })
+            <div className="bg-zinc-950/70 border border-orange-500/25 rounded-3xl shadow-[0_24px_90px_-50px_rgba(249,115,22,0.8)] p-6 sm:p-8 grid gap-8 lg:grid-cols-[1.1fr,0.9fr] items-start">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="flex flex-col gap-2 text-sm text-gray-200">
+                    Никнейм или артист
+                    <input
+                      required
+                      name="username"
+                      value={formData.username}
+                      onChange={handleChange}
+                      placeholder="PHASE / Anton"
+                      className="rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-2 text-sm text-gray-200">
+                    Email
+                    <input
+                      required
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="you@example.com"
+                      className="rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
+                    />
+                  </label>
+                </div>
 
-            const data = await response.json()
+                <label className="flex flex-col gap-2 text-sm text-gray-200">
+                  Пароль
+                  <input
+                    required
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Минимум 8 символов"
+                    className="rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
+                  />
+                </label>
 
-            // если ошибка сервера
-            if (!response.ok) {
-                throw new Error(data.error || data.message || "Ошибка регистрации")
-            }
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
+                  <button
+                    type="submit"
+                    className="px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-black font-semibold uppercase tracking-wide shadow-[0_14px_40px_-18px_rgba(249,115,22,0.8)] hover:scale-[1.01] transition"
+                  >
+                    Создать аккаунт
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/login")}
+                    className="px-6 py-3 rounded-xl border border-orange-500/40 text-sm uppercase tracking-wide text-gray-200 hover:text-orange-300 hover:border-orange-400 transition"
+                  >
+                    Уже есть аккаунт
+                  </button>
+                </div>
 
-            // если все ок → сохраняем токен
-            localStorage.setItem('token', data.token)
-
-            // переход на страницу логина
-            navigate('/login')
-
-        } catch (error) {
-            // ловим и выводим ошибку
-            setErrors(error.message)
-        }
-    }
-
-    return (
-        <div>
-            <Header />
-
-            <section className="bg-black flex justify-center p-10">
-                <h2 className="text-white p-5 text-4xl">Регистрация</h2>
-
-                {errors && (
-                    <p className="text-red-500 text-xl">{errors}</p>
+                {message && (
+                  <p className="text-sm text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3">{message}</p>
                 )}
+              </form>
 
-                <section className="bg-black flex justify-center">
-                    <form
-                        className="p-10 bg-blue-300 flex flex-col gap-5 rounded-[20px]"
-                        onSubmit={handleInputSubmit}
-                    >
-                        {/* поля */}
-                        <input
-                            type="text"
-                            name="username"
-                            className="text-black w-[300px] h-[50px] rounded-[30px] p-4"
-                            placeholder="Никнейм"
-                            onChange={handleInputChange}
-                            value={formData.username}
-                            required
-                        />
+              <div className="space-y-4 text-sm text-gray-300 bg-black/60 border border-orange-500/20 rounded-2xl p-5">
+                <p className="text-[11px] uppercase tracking-[0.24em] text-orange-300">Что даёт аккаунт</p>
+                <ul className="space-y-3 leading-relaxed">
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 block h-2 w-2 rounded-full bg-orange-500" />
+                    Быстрый доступ к бронированиям и истории заявок.
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 block h-2 w-2 rounded-full bg-orange-500" />
+                    Сохранённые контакты и предпочтения по студии.
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 block h-2 w-2 rounded-full bg-orange-500" />
+                    Приоритетные слоты для постоянных клиентов.
+                  </li>
+                </ul>
 
-                        <input
-                            type="email"
-                            name="email"
-                            className="text-black w-[300px] h-[50px] rounded-[30px] p-4"
-                            placeholder="Email"
-                            onChange={handleInputChange}
-                            value={formData.email}
-                            required
-                        />
+                <div className="text-xs text-gray-500 space-y-1">
+                  <p>Регистрация оффлайн: мы сохраняем данные локально, без серверной отправки.</p>
+                  <p>Можно в любой момент выйти из профиля через меню.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
-                        <input
-                            type="password"
-                            name="password"
-                            className="text-black w-[300px] h-[50px] rounded-[30px] p-4"
-                            placeholder="Пароль"
-                            onChange={handleInputChange}
-                            value={formData.password}
-                            required
-                        />
+      <Footer />
+    </div>
+  );
+};
 
-                        <button className="bg-blue-500 text-black p-5 w-[250px] h-[80px] rounded-[20px]">
-                            Создать аккаунт
-                        </button>
-                    </form>
-                </section>
-            </section>
-        </div>
-    )
-}
-
-export default Registration
+export default Registration;
