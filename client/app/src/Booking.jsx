@@ -26,6 +26,7 @@ export default function Booking() {
     return { ...initialForm, serviceId };
   });
   const [submitted, setSubmitted] = useState(false);
+  const [modalData, setModalData] = useState(null);
 
   const selectedService = useMemo(
     () => services.find((service) => service.id === form.serviceId),
@@ -41,8 +42,17 @@ export default function Booking() {
     event.preventDefault();
     bookService({ ...form });
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    setForm(initialForm);
+    setModalData({
+      ...form,
+      serviceTitle: selectedService?.title,
+      price: selectedService?.price,
+    });
+    setForm((prev) => ({ ...initialForm, serviceId: prev.serviceId }));
+  };
+
+  const closeModal = () => {
+    setSubmitted(false);
+    setModalData(null);
   };
 
   return (
@@ -185,7 +195,7 @@ export default function Booking() {
                   </button>
                 </div>
 
-                {submitted && (
+                {submitted && !modalData && (
                   <p className="text-sm text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3">
                     Заявка отправлена! Мы свяжемся с вами, чтобы подтвердить время.
                   </p>
@@ -211,6 +221,78 @@ export default function Booking() {
       </main>
 
       <Footer />
+
+      {modalData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+          <div className="relative bg-zinc-950 border border-orange-500/30 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[0_24px_90px_-45px_rgba(249,115,22,0.8)] animate-[fadeIn_0.25s_ease]
+">
+            <button
+              type="button"
+              onClick={closeModal}
+              className="absolute top-3 right-3 text-gray-400 hover:text-white transition"
+              aria-label="Закрыть"
+            >
+              ✕
+            </button>
+
+            <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400 mb-2">заявка создана</p>
+            <h3 className="text-2xl font-bold mb-2">Мы приняли вашу бронь</h3>
+            <p className="text-sm text-gray-300 mb-4">
+              Проверьте детали и подтвердите время в ответном сообщении — мы свяжемся с вами в ближайшее время.
+            </p>
+
+            <div className="space-y-3 text-sm text-gray-200 bg-black/50 border border-orange-500/20 rounded-2xl p-4">
+              <div className="flex justify-between gap-4">
+                <span className="text-gray-400">Услуга</span>
+                <span className="font-semibold text-orange-300 text-right">
+                  {modalData.serviceTitle || "Услуга студии"}
+                </span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span className="text-gray-400">Дата</span>
+                <span className="text-right">{modalData.date || "не выбрана"}</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span className="text-gray-400">Время</span>
+                <span className="text-right">{modalData.time || "не выбрано"}</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span className="text-gray-400">Контакт</span>
+                <span className="text-right">{modalData.contact}</span>
+              </div>
+              {modalData.comment && (
+                <div className="flex flex-col gap-1">
+                  <span className="text-gray-400">Комментарий</span>
+                  <span className="text-right text-gray-100">{modalData.comment}</span>
+                </div>
+              )}
+              {modalData.price && (
+                <div className="flex justify-between gap-4 pt-1 border-t border-orange-500/10">
+                  <span className="text-gray-400">Ориентир по стоимости</span>
+                  <span className="font-semibold text-orange-300">{modalData.price}</span>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => navigate("/cart")}
+                className="w-full px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-black font-semibold uppercase tracking-wide transition"
+              >
+                Купить плагины
+              </button>
+              <button
+                type="button"
+                onClick={closeModal}
+                className="w-full px-6 py-3 rounded-xl border border-orange-500/40 text-sm uppercase tracking-wide text-gray-200 hover:text-orange-300 hover:border-orange-400 transition"
+              >
+                Оставить новую заявку
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
