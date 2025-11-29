@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./input.css";
 import Header from "./components/Header.jsx";
 import Services from "./components/Services.jsx";
@@ -9,6 +10,19 @@ import HardwareAndSoftwareInfo from "./components/HardwareAndSofrwareInfo.jsx";
 import PluginsInfo from "./components/PluginsInfo.jsx";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById("services");
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/shop");
+    }
+  };
+
+  const goToBooking = () => navigate("/booking");
+
   return (
     <div className="bg-black text-white font-sans min-h-screen flex flex-col">
       <Header />
@@ -62,11 +76,17 @@ const Home = () => {
 
               {/* CTA-кнопки */}
               <div className="mt-8 flex flex-wrap gap-4">
-                <button className="px-10 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm md:text-base font-semibold uppercase tracking-wide shadow-[0_18px_45px_-18px_rgba(249,115,22,1)] transition">
+                <button
+                  onClick={goToBooking}
+                  className="px-10 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm md:text-base font-semibold uppercase tracking-wide shadow-[0_18px_45px_-18px_rgba(249,115,22,1)] transition"
+                >
                   Забронировать время
                 </button>
 
-                <button className="px-6 py-3 rounded-full border border-orange-500/40 bg-black/60 hover:bg-black text-xs md:text-sm uppercase tracking-wide text-gray-200 transition">
+                <button
+                  onClick={scrollToServices}
+                  className="px-6 py-3 rounded-full border border-orange-500/40 bg-black/60 hover:bg-black text-xs md:text-sm uppercase tracking-wide text-gray-200 transition"
+                >
                   Смотреть услуги
                 </button>
               </div>

@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  const handleContact = () => navigate("/contacts");
+  const handleServices = () => navigate("/shop");
+  const handleBooking = () => navigate("/booking");
+
   return (
     <footer className="w-full border-t border-orange-500/20 bg-black/95 text-white py-10 px-4 mt-auto">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -19,7 +26,10 @@ export default function Footer() {
               Работаем с артистами и брендами онлайн и офлайн.
             </p>
 
-            <button className="inline-flex items-center justify-center rounded-full border border-orange-400/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] bg-black hover:bg-orange-400 hover:text-black transition-colors">
+            <button
+              onClick={handleContact}
+              className="inline-flex items-center justify-center rounded-full border border-orange-400/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] bg-black hover:bg-orange-400 hover:text-black transition-colors"
+            >
               Связаться
             </button>
           </div>
@@ -31,7 +41,7 @@ export default function Footer() {
                 Услуги
               </h3>
               <ul className="space-y-2 text-[13px]">
-                {[
+                {[ 
                   "Все услуги",
                   "Запись",
                   "Сведение и мастеринг",
@@ -41,12 +51,12 @@ export default function Footer() {
                   "Выгрузка релиза",
                 ].map((t) => (
                   <li key={t}>
-                    <a
-                      href="#"
+                    <button
+                      onClick={handleServices}
                       className="hover:text-orange-300 transition-colors"
                     >
                       {t}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -57,21 +67,21 @@ export default function Footer() {
                 О нас
               </h3>
               <ul className="space-y-2 text-[13px]">
-                {[
-                  "Оборудование",
-                  "Контакты",
-                  "С кем работали",
-                  "Студии Phase Records",
-                ].map((t) => (
-                  <li key={t}>
-                    <a
-                      href="#"
-                      className="hover:text-orange-300 transition-colors"
-                    >
-                      {t}
-                    </a>
-                  </li>
-                ))}
+                  {[ 
+                    { label: "Оборудование", action: handleServices },
+                    { label: "Контакты", action: handleContact },
+                    { label: "С кем работали", action: handleServices },
+                    { label: "Студии Phase Records", action: handleServices },
+                  ].map((item) => (
+                    <li key={item.label}>
+                      <button
+                        onClick={item.action}
+                        className="hover:text-orange-300 transition-colors"
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ))}
               </ul>
             </div>
 
@@ -80,14 +90,19 @@ export default function Footer() {
                 More info
               </h3>
               <ul className="space-y-2 text-[13px]">
-                {["FAQ", "Цены", "Статьи", "Отзывы"].map((t) => (
-                  <li key={t}>
-                    <a
-                      href="#"
+                {[
+                  { label: "FAQ", action: handleServices },
+                  { label: "Цены", action: handleServices },
+                  { label: "Статьи", action: handleServices },
+                  { label: "Отзывы", action: handleBooking },
+                ].map((item) => (
+                  <li key={item.label}>
+                    <button
+                      onClick={item.action}
                       className="hover:text-orange-300 transition-colors"
                     >
-                      {t}
-                    </a>
+                      {item.label}
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -105,6 +120,7 @@ export default function Footer() {
               {["VK", "TG", "IG*"].map((label) => (
                 <button
                   key={label}
+                  onClick={handleContact}
                   className="w-8 h-8 rounded-full border border-orange-500/60 bg-neutral-900 flex items-center justify-center text-[11px] font-semibold text-neutral-200 hover:bg-orange-400 hover:text-black transition-colors"
                 >
                   {label}

@@ -1,29 +1,34 @@
-import Home from "./Home.jsx";
-import About from "./About.jsx";
-import Contacts from "./Contacts.jsx";
-import Shop from "./Shop.jsx";
-import Registration from "./Registration.jsx";
-import Cart from "./Cart.jsx";
 import './input.css';
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import About from "./About.jsx";
+import Booking from "./Booking.jsx";
+import Cart from "./Cart.jsx";
+import Contacts from "./Contacts.jsx";
+import Home from "./Home.jsx";
+import PluginDetails from "./PluginDetails.jsx";
+import Registration from "./Registration.jsx";
+import ServiceDetails from "./ServiceDetails.jsx";
+import Shop from "./Shop.jsx";
+import { ShopProvider } from "./context/ShopContext";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/about" element={<About></About>}></Route>
-          <Route path="/contacts" element={<Contacts></Contacts>}></Route>
-          <Route path="/shop" element={<Shop></Shop>}></Route>
-          <Route path="/register" element={<Registration></Registration>}></Route>
-          <Route path="/cart" element={<Cart></Cart>}></Route>
-          
-        
-        </Routes>
-
-
-      </BrowserRouter>
+      <ShopProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/register" element={<Registration />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/services/:serviceId" element={<ServiceDetails />} />
+            <Route path="/plugins/:pluginId" element={<PluginDetails />} />
+          </Routes>
+        </BrowserRouter>
+      </ShopProvider>
     </div>
   );
 }

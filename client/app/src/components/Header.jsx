@@ -47,6 +47,7 @@ export default function Header() {
     { label: "О нас", path: "/about" },
     { label: "Контакты", path: "/contacts" },
     { label: "Магазин", path: "/shop" },
+    { label: "Бронирование", path: "/booking" },
   ];
 
   return (
