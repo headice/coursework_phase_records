@@ -1,5 +1,6 @@
 import './input.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from "framer-motion";
 import About from "./About.jsx";
 import Booking from "./Booking.jsx";
 import Cart from "./Cart.jsx";
@@ -12,25 +13,36 @@ import ServiceDetails from "./ServiceDetails.jsx";
 import Shop from "./Shop.jsx";
 import { ShopProvider } from "./context/ShopContext";
 import Profile from "./Profile.jsx";
+import PageTransition from "./components/PageTransition.jsx";
+
+function AppRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+        <Route path="/contacts" element={<PageTransition><Contacts /></PageTransition>} />
+        <Route path="/shop" element={<PageTransition><Shop /></PageTransition>} />
+        <Route path="/register" element={<PageTransition><Registration /></PageTransition>} />
+        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+        <Route path="/profile" element={<PageTransition><Profile /></PageTransition>} />
+        <Route path="/cart" element={<PageTransition><Cart /></PageTransition>} />
+        <Route path="/booking" element={<PageTransition><Booking /></PageTransition>} />
+        <Route path="/services/:serviceId" element={<PageTransition><ServiceDetails /></PageTransition>} />
+        <Route path="/plugins/:pluginId" element={<PageTransition><PluginDetails /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   return (
     <div className="App">
       <ShopProvider>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/register" element={<Registration />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/services/:serviceId" element={<ServiceDetails />} />
-            <Route path="/plugins/:pluginId" element={<PluginDetails />} />
-          </Routes>
+          <AppRoutes />
         </BrowserRouter>
       </ShopProvider>
     </div>
