@@ -22,11 +22,11 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="w-full bg-gradient-to-b from-black via-zinc-950 to-orange-950/40 text-white py-20 px-4 overflow-hidden"
+      className="w-full bg-gradient-to-b from-neutral-950 via-black to-neutral-950 text-white py-20 px-4 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto text-center mb-12">
         <motion.h2
-          className="text-3xl sm:text-4xl font-extrabold text-orange-400"
+          className="text-3xl sm:text-4xl font-extrabold text-white"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -100,37 +100,37 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -5 }}
-              className="relative min-w-[85%] sm:min-w-[45%] lg:min-w-[30%] xl:min-w-[23%] h-[420px] rounded-xl overflow-hidden snap-center cursor-pointer group shadow-xl hover:shadow-2xl transition-all duration-500 bg-black"
+              whileHover={{ y: -3 }}
+              className="relative min-w-[85%] sm:min-w-[45%] lg:min-w-[30%] xl:min-w-[23%] h-[420px] rounded-xl overflow-hidden snap-center cursor-pointer group border border-white/10 bg-neutral-950 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.8)] transition-all duration-400"
               onClick={() => navigate(`/services/${service.id}`)}
             >
               <img
                 src={service.image}
                 alt={service.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                className="w-full h-full object-cover"
                 loading="lazy"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent group-hover:from-black/95 group-hover:via-black/60 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent" />
 
               <div className="absolute inset-0 flex flex-col justify-end p-6 text-left">
-                <h3 className="text-xl font-bold mb-2">
+                <h3 className="text-xl font-semibold mb-2">
                   <span className="text-orange-400">{service.title} </span>
                   <span className="text-white">{service.subtitle}</span>
                 </h3>
                 <p
-                  className="text-gray-200 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100"
+                  className="text-gray-200 text-sm leading-relaxed opacity-90"
                 >
                   {service.shortDescription}
                 </p>
 
-                <div className="mt-4 flex items-center gap-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                <div className="mt-4 flex items-center gap-3">
                   <button
                     onClick={(event) => {
                       event.stopPropagation();
                       navigate(`/services/${service.id}`);
                     }}
-                    className="bg-orange-500/90 hover:bg-orange-500 text-white py-2 px-4 rounded-lg text-sm font-medium"
+                    className="bg-white text-black hover:bg-orange-500 hover:text-black py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                   >
                     Узнать больше
                   </button>
@@ -139,7 +139,7 @@ export default function ServicesSection() {
                       event.stopPropagation();
                       navigate(`/booking?service=${service.id}`);
                     }}
-                    className="border border-orange-500/60 hover:border-orange-400 text-white py-2 px-4 rounded-lg text-sm font-medium"
+                    className="border border-white/20 hover:border-orange-400 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                   >
                     Забронировать
                   </button>

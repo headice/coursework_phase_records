@@ -78,14 +78,14 @@ const Home = () => {
               <div className="mt-8 flex flex-wrap gap-4">
                 <button
                   onClick={goToBooking}
-                  className="px-10 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm md:text-base font-semibold uppercase tracking-wide shadow-[0_18px_45px_-18px_rgba(249,115,22,1)] transition"
+                  className="px-10 py-3 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-sm md:text-base font-semibold uppercase tracking-wide transition"
                 >
                   Забронировать время
                 </button>
 
                 <button
                   onClick={scrollToServices}
-                  className="px-6 py-3 rounded-full border border-orange-500/40 bg-black/60 hover:bg-black text-xs md:text-sm uppercase tracking-wide text-gray-200 transition"
+                  className="px-6 py-3 rounded-full border border-white/10 bg-black/70 hover:border-orange-400 text-xs md:text-sm uppercase tracking-wide text-gray-200 transition"
                 >
                   Смотреть услуги
                 </button>

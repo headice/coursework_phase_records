@@ -25,22 +25,18 @@ const Shop = () => {
   };
 
   return (
-    <div className="bg-black text-white font-sans min-h-screen flex flex-col">
+    <div className="bg-neutral-950 text-white font-sans min-h-screen flex flex-col">
       <Header />
 
       <main className="flex-1">
         {/* HERO МАГАЗИНА */}
-        <section className="relative w-full overflow-hidden border-b border-zinc-900/40">
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black" />
-          <div className="absolute -right-40 -top-40 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl" />
-          <div className="absolute -left-40 bottom-0 w-96 h-96 rounded-full bg-orange-500/5 blur-3xl" />
-
-          <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 flex flex-col lg:flex-row gap-10 lg:gap-16 items-end lg:items-center">
+        <section className="relative w-full overflow-hidden border-b border-white/5 bg-neutral-950">
+          <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 flex flex-col lg:flex-row gap-10 lg:gap-16 items-end lg:items-center">
             <div className="flex-1 space-y-6">
               <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400">phase shop</p>
               <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
                 Услуги студии и плагины,
-                <span className="block text-orange-500">которыми мы пользуемся</span>
+                <span className="block text-orange-400">которыми мы пользуемся</span>
               </h1>
               <p className="text-sm sm:text-base text-gray-200 max-w-2xl">
                 Добавляйте услуги в бронирование или плагины в корзину. Каждая карточка открывается для подробностей.
@@ -48,20 +44,20 @@ const Shop = () => {
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => navigate("/booking")}
-                  className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm font-semibold uppercase tracking-wide text-black shadow-[0_18px_45px_-18px_rgba(249,115,22,1)] transition"
+                  className="px-8 py-3 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-sm font-semibold uppercase tracking-wide transition"
                 >
                   Забронировать студию
                 </button>
                 <button
                   onClick={() => navigate("/cart")}
-                  className="px-6 py-3 rounded-full border border-orange-500/40 bg-black/70 hover:bg-black text-xs uppercase tracking-wide text-gray-200 transition"
+                  className="px-6 py-3 rounded-full border border-white/10 bg-black/60 hover:border-orange-400 text-xs uppercase tracking-wide text-gray-200 transition"
                 >
                   Перейти в корзину
                 </button>
               </div>
             </div>
 
-            <div className="flex-1 w-full max-w-lg bg-gradient-to-br from-orange-500/10 via-black to-black rounded-3xl p-6 border border-orange-500/30">
+            <div className="flex-1 w-full max-w-lg rounded-3xl p-6 border border-white/10 bg-black/60">
               <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400 mb-3">быстрый старт</p>
               <p className="text-sm text-gray-200">
                 Оставьте заявку на бронирование или добавьте плагины в корзину. Мы пришлём инструкции по оплате и установке.
@@ -75,7 +71,7 @@ const Shop = () => {
         </section>
 
         {/* УСЛУГИ */}
-        <section className="py-16 bg-gradient-to-b from-black via-black to-zinc-950">
+        <section className="py-16 bg-neutral-950">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
               <div>
@@ -96,7 +92,7 @@ const Shop = () => {
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className="group flex flex-col sm:flex-row gap-4 bg-zinc-950/70 border border-orange-500/20 rounded-2xl overflow-hidden shadow-[0_24px_80px_-40px_rgba(0,0,0,1)] hover:border-orange-500/50 transition"
+                  className="group flex flex-col sm:flex-row gap-4 bg-black/60 border border-white/10 rounded-2xl overflow-hidden shadow-[0_24px_60px_-40px_rgba(0,0,0,0.8)] hover:border-orange-400 transition"
                 >
                   <div
                     className="w-full sm:w-1/3 h-40 sm:h-auto bg-cover bg-center"
@@ -119,13 +115,13 @@ const Shop = () => {
                       <div className="flex flex-col gap-2">
                         <button
                           onClick={() => handleServiceClick(service.id)}
-                          className="px-4 py-2 rounded-full bg-orange-500 hover:bg-orange-600 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition-colors"
+                          className="px-4 py-2 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors"
                         >
                           Подробнее
                         </button>
                         <button
                           onClick={() => handleServiceBooking(service.id)}
-                          className="px-4 py-2 rounded-full border border-orange-500/40 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-200 hover:text-orange-300 hover:border-orange-400 transition-colors"
+                          className="px-4 py-2 rounded-full border border-white/20 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-200 hover:text-orange-300 hover:border-orange-400 transition-colors"
                         >
                           Забронировать
                         </button>
@@ -139,7 +135,7 @@ const Shop = () => {
         </section>
 
         {/* ПЛАГИНЫ И СОФТ */}
-        <section className="py-20 bg-gradient-to-b from-black via-black to-orange-900/20">
+        <section className="py-20 bg-neutral-950">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
               <div>
@@ -160,12 +156,12 @@ const Shop = () => {
               {plugins.map((plugin) => (
                 <div
                   key={plugin.id}
-                  className="bg-black/85 border border-orange-500/30 rounded-2xl overflow-hidden flex flex-col shadow-[0_24px_80px_-40px_rgba(0,0,0,1)]"
+                  className="bg-black/70 border border-white/10 rounded-2xl overflow-hidden flex flex-col shadow-[0_24px_60px_-40px_rgba(0,0,0,0.8)]"
                 >
                   <button type="button" className="relative h-36" onClick={() => handlePluginClick(plugin.id)}>
                     <img src={plugin.image} alt={plugin.name} className="w-full h-full object-cover" />
                     {plugin.discount && (
-                      <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-orange-500 text-[11px] font-bold uppercase tracking-[0.18em] text-black">
+                      <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white text-[11px] font-semibold uppercase tracking-[0.18em] text-black">
                         {plugin.discount}
                       </div>
                     )}
@@ -186,13 +182,13 @@ const Shop = () => {
                       <div className="flex flex-col gap-2">
                         <button
                           onClick={() => handlePluginClick(plugin.id)}
-                          className="px-4 py-2 rounded-full border border-orange-500/40 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-200 hover:text-orange-300 hover:border-orange-400 transition-colors"
+                          className="px-4 py-2 rounded-full border border-white/20 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-200 hover:text-orange-300 hover:border-orange-400 transition-colors"
                         >
                           Подробнее
                         </button>
                         <button
                           onClick={() => handleAddToCart(plugin)}
-                          className="px-4 py-2 rounded-full bg-orange-500 hover:bg-orange-600 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition-colors"
+                          className="px-4 py-2 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors"
                         >
                           В корзину
                         </button>

@@ -19,30 +19,27 @@ export default function StudioSaleSection() {
   };
 
   return (
-    <section className="w-full bg-gradient-to-br from-black via-black to-orange-800/30 text-white py-24">
+    <section className="w-full bg-neutral-950 text-white py-24">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
-        <div className="grid gap-10 md:grid-cols-2 items-center mb-20">
-          <div className="space-y-6">
+        <div className="grid gap-10 md:grid-cols-2 items-center mb-16">
+          <div className="space-y-4">
             <p className="text-xs uppercase tracking-[0.25em] text-orange-400">phase plugins</p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight uppercase">
-              МЫ ТЕПЕРЬ РАЗРАБАТЫВАЕМ
-              <br />
-              <span className="text-orange-500">ПЛАГИНЫ</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+              Плагины и инструменты, которыми пользуемся
             </h1>
 
-            <p className="text-lg md:text-xl max-w-xl text-gray-200">
-              Создаём плагины для сведения, синтезаторы и эффекты, которые сами используем в работе на студии. Ранняя стоимость ниже релизной.
+            <p className="text-base md:text-lg max-w-xl text-gray-200">
+              Создаём плагины для сведения, синтезаторы и эффекты — ровно те, что применяем в своих проектах на студии.
             </p>
 
-            <p className="text-sm md:text-base font-semibold tracking-wide uppercase text-orange-400">
-              Акция на пресейл действует до 4 декабря.
+            <p className="text-sm md:text-base font-medium text-gray-300">
+              Предзаказ даёт раннюю цену и все обновления после релиза.
             </p>
           </div>
 
           <div className="relative flex justify-center md:justify-end">
-            <div className="relative w-full max-w-md">
-              <div className="absolute -inset-6 rounded-3xl bg-orange-500/15 blur-3xl opacity-80" />
-              <div className="relative rounded-3xl overflow-hidden ">
+            <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-black/50 p-6">
+              <div className="rounded-2xl overflow-hidden bg-neutral-900">
                 <img src={vsthero} alt="Инструменты и плагины" className="w-full h-full object-contain" />
               </div>
             </div>
@@ -51,14 +48,14 @@ export default function StudioSaleSection() {
 
         <div className="grid gap-6 md:grid-cols-4">
           {plugins.map((plugin) => (
-            <div key={plugin.id} className="flex flex-col bg-black/85 border border-orange-500/30 rounded-2xl overflow-hidden">
+            <div key={plugin.id} className="flex flex-col border border-white/10 rounded-2xl overflow-hidden bg-neutral-950">
               <button
                 type="button"
                 onClick={() => navigate(`/plugins/${plugin.id}`)}
-                className="px-5 pt-5 pb-4 bg-gradient-to-b from-orange-900/50 to-black text-left"
+                className="px-5 pt-5 pb-4 text-left hover:bg-white/5 transition"
               >
                 <div
-                  className="h-40 rounded-xl mb-4"
+                  className="h-40 rounded-xl mb-4 bg-neutral-900"
                   style={{
                     backgroundImage: `url(${plugin.image})`,
                     backgroundSize: "cover",
@@ -66,12 +63,12 @@ export default function StudioSaleSection() {
                   }}
                 />
                 {plugin.discount && (
-                  <p className="text-xs font-bold tracking-wide text-orange-400 uppercase">{plugin.discount}</p>
+                  <p className="text-xs font-semibold tracking-wide text-orange-400 uppercase">{plugin.discount}</p>
                 )}
-                <h3 className="mt-1 text-sm font-extrabold tracking-wide uppercase">{plugin.name}</h3>
-                <p className="mt-2 text-xs text-gray-300">{plugin.description}</p>
+                <h3 className="mt-1 text-sm font-semibold tracking-wide uppercase">{plugin.name}</h3>
+                <p className="mt-2 text-xs text-gray-300 leading-relaxed">{plugin.description}</p>
               </button>
-              <div className="mt-auto px-5 pb-5 pt-3 space-y-2">
+              <div className="mt-auto px-5 pb-5 pt-3 space-y-2 border-t border-white/5">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-orange-300 font-semibold">{plugin.price}</span>
                   <span className="text-gray-500 line-through">{plugin.oldPrice}</span>
@@ -79,13 +76,13 @@ export default function StudioSaleSection() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => navigate(`/plugins/${plugin.id}`)}
-                    className="w-1/2 py-3 border border-orange-500/40 hover:border-orange-400 transition text-[11px] font-bold uppercase rounded-xl text-gray-200"
+                    className="w-1/2 py-3 border border-white/20 hover:border-orange-400 transition text-[11px] font-semibold uppercase rounded-xl text-gray-200"
                   >
                     Подробнее
                   </button>
                   <button
                     onClick={() => handleAddToCart(plugin)}
-                    className="w-1/2 py-3 bg-orange-500 hover:bg-orange-600 transition text-[11px] font-bold uppercase rounded-xl text-black"
+                    className="w-1/2 py-3 bg-orange-500 hover:bg-orange-600 transition text-[11px] font-semibold uppercase rounded-xl text-black"
                   >
                     В корзину
                   </button>
