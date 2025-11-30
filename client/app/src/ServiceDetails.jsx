@@ -80,7 +80,7 @@ export default function ServiceDetails() {
                   }
                   className="w-full mt-3 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-black font-semibold uppercase tracking-wide shadow-[0_14px_40px_-18px_rgba(249,115,22,0.8)] hover:scale-[1.01] transition"
                 >
-                  {isRecording ? "Забронировать" : "Оставить заявку"}
+                  {isRecording ? "Забронировать" : "Купить"}
                 </button>
                 <button
                   onClick={() => navigate("/shop")}

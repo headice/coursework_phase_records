@@ -39,7 +39,7 @@ const Shop = () => {
 
       <main className="flex-1">
         {/* HERO МАГАЗИНА */}
-        <section className="relative w-full overflow-hidden border-b border-white/5 bg-neutral-950">
+        <section className="relative w-full overflow-hidden border-b border-white/5 bg-gradient-to-b from-black via-neutral-950 to-black">
           <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 flex flex-col lg:flex-row gap-10 lg:gap-16 items-end lg:items-center">
             <div className="flex-1 space-y-6">
               <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400">phase shop</p>
@@ -132,7 +132,7 @@ const Shop = () => {
                             onClick={() => handleServiceBooking(service.id)}
                             className="px-4 py-2 rounded-full border border-white/20 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-200 hover:text-orange-300 hover:border-orange-400 transition-colors"
                           >
-                            {service.id === "recording" ? "Забронировать" : "Оставить заявку"}
+                            {service.id === "recording" ? "Забронировать" : "Купить"}
                           </button>
                         </div>
                     </div>
@@ -144,7 +144,7 @@ const Shop = () => {
         </section>
 
         {/* ПЛАГИНЫ И СОФТ */}
-        <section className="py-20 bg-neutral-950">
+        <section className="py-20 bg-gradient-to-b from-neutral-950 via-black/90 to-neutral-950 border-t border-white/5">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
               <div>

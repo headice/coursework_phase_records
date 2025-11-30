@@ -149,7 +149,7 @@ export default function ServicesSection() {
                     onClick={(event) => handleBookingClick(event, service)}
                     className="border border-white/20 hover:border-orange-400 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                   >
-                    {service.id === "recording" ? "Забронировать" : "Оставить заявку"}
+                    {service.id === "recording" ? "Забронировать" : "Купить"}
                   </button>
                 </div>
               </div>
