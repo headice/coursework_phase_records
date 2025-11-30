@@ -1,15 +1,13 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "../input.css";
 import { ShopContext } from "../context/ShopContext";
-import RequestModal from "./RequestModal.jsx";
 
 export default function ServicesSection() {
   const scrollRef = useRef(null);
-  const { services } = useContext(ShopContext);
+  const { services, addToCart } = useContext(ShopContext);
   const navigate = useNavigate();
-  const [requestItem, setRequestItem] = useState(null);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -26,7 +24,14 @@ export default function ServicesSection() {
     if (service.id === "recording") {
       navigate(`/booking?service=${service.id}`);
     } else {
-      setRequestItem({ id: service.id, title: service.title, type: "service" });
+      addToCart({
+        id: service.id,
+        name: service.title,
+        price: service.price,
+        type: "service",
+        tag: service.subtitle,
+      });
+      navigate("/cart");
     }
   };
 
@@ -169,11 +174,6 @@ export default function ServicesSection() {
           </div>
         </div>
       </div>
-      <RequestModal
-        open={Boolean(requestItem)}
-        onClose={() => setRequestItem(null)}
-        preset={requestItem}
-      />
     </section>
   );
 }

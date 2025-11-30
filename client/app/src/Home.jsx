@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./input.css";
 import Header from "./components/Header.jsx";
@@ -8,9 +8,11 @@ import Credits from "./components/Credits.jsx";
 import AudioPlayerForDemo from "./components/AudioPlayerForDemo.jsx";
 import HardwareAndSoftwareInfo from "./components/HardwareAndSofrwareInfo.jsx";
 import PluginsInfo from "./components/PluginsInfo.jsx";
+import RequestModal from "./components/RequestModal.jsx";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [requestOpen, setRequestOpen] = useState(false);
 
   const scrollToServices = () => {
     const servicesSection = document.getElementById("services");
@@ -203,9 +205,10 @@ const Home = () => {
 
             <div className="flex flex-col items-center gap-4">
               <button
+                onClick={() => setRequestOpen(true)}
                 className="
-                flex items-center gap-3 
-                px-12 py-4 
+                flex items-center gap-3
+                px-12 py-4
                 rounded-2xl 
                 text-lg font-semibold 
                 bg-gradient-to-r from-orange-500 to-orange-600
@@ -232,6 +235,12 @@ const Home = () => {
         <HardwareAndSoftwareInfo />
         <PluginsInfo />
       </main>
+
+      <RequestModal
+        open={requestOpen}
+        onClose={() => setRequestOpen(false)}
+        preset={{ type: "service", title: "Консультация" }}
+      />
 
       <Footer />
     </div>

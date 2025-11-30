@@ -1,15 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./input.css";
 import { useNavigate } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
-import RequestModal from "./components/RequestModal.jsx";
 
 const Shop = () => {
   const { services, plugins, addToCart } = useContext(ShopContext);
   const navigate = useNavigate();
-  const [requestItem, setRequestItem] = useState(null);
 
   const handleServiceClick = (serviceId) => navigate(`/services/${serviceId}`);
   const handleServiceBooking = (serviceId) => {
@@ -17,7 +15,15 @@ const Shop = () => {
       navigate(`/booking?service=${serviceId}`);
     } else {
       const service = services.find((item) => item.id === serviceId);
-      setRequestItem({ id: serviceId, title: service?.title, type: "service" });
+      if (!service) return;
+      addToCart({
+        id: service.id,
+        name: service.title,
+        price: service.price,
+        type: "service",
+        tag: service.subtitle,
+      });
+      navigate("/cart");
     }
   };
 
@@ -214,12 +220,6 @@ const Shop = () => {
           </div>
         </section>
       </main>
-
-      <RequestModal
-        open={Boolean(requestItem)}
-        onClose={() => setRequestItem(null)}
-        preset={requestItem}
-      />
 
       <Footer />
     </div>

@@ -3,13 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
-import RequestModal from "./components/RequestModal.jsx";
 
 export default function ServiceDetails() {
   const { serviceId } = useParams();
-  const { services } = useContext(ShopContext);
+  const { services, addToCart } = useContext(ShopContext);
   const navigate = useNavigate();
-  const [requestOpen, setRequestOpen] = useState(false);
+  const [added, setAdded] = useState(false);
 
   const service = services.find((item) => item.id === serviceId);
   const isRecording = service?.id === "recording";
@@ -73,14 +72,24 @@ export default function ServiceDetails() {
                   <span className="font-semibold text-orange-300">{service.price}</span>
                 </div>
                 <button
-                  onClick={() =>
-                    isRecording
-                      ? navigate(`/booking?service=${service.id}`)
-                      : setRequestOpen(true)
-                  }
+                  onClick={() => {
+                    if (isRecording) {
+                      navigate(`/booking?service=${service.id}`);
+                    } else {
+                      addToCart({
+                        id: service.id,
+                        name: service.title,
+                        price: service.price,
+                        type: "service",
+                        tag: service.subtitle,
+                      });
+                      setAdded(true);
+                      setTimeout(() => setAdded(false), 3000);
+                    }
+                  }}
                   className="w-full mt-3 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-black font-semibold uppercase tracking-wide shadow-[0_14px_40px_-18px_rgba(249,115,22,0.8)] hover:scale-[1.01] transition"
                 >
-                  {isRecording ? "Забронировать" : "Купить"}
+                  {isRecording ? "Забронировать" : added ? "В корзине" : "Купить"}
                 </button>
                 <button
                   onClick={() => navigate("/shop")}
@@ -117,12 +126,6 @@ export default function ServiceDetails() {
       </main>
 
       <Footer />
-
-      <RequestModal
-        open={Boolean(requestOpen && !isRecording)}
-        onClose={() => setRequestOpen(false)}
-        preset={{ title: service.title, type: "service" }}
-      />
     </div>
   );
 }
