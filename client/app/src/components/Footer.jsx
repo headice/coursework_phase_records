@@ -1,25 +1,31 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  const handleContact = () => navigate("/contacts");
+  const handleServices = () => navigate("/shop");
+  const handleBooking = () => navigate("/booking");
+
   return (
-    <footer className="w-full border-t border-orange-500/20 bg-black/95 text-white py-10 px-4 mt-auto">
+    <footer className="w-full border-t border-white/10 bg-neutral-950 text-white py-10 px-4 mt-auto">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Верхний блок */}
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           {/* Левая колонка */}
           <div className="space-y-4 max-w-sm">
-            <p className="text-xs uppercase tracking-[0.25em] text-orange-400">
-              phase records
-            </p>
-            <h2 className="text-2xl font-semibold">
-              Студия звукозаписи во Владивостоке
-            </h2>
+            <p className="text-xs uppercase tracking-[0.25em] text-orange-400">phase records</p>
+            <h2 className="text-2xl font-semibold">Студия звукозаписи во Владивостоке</h2>
             <p className="text-sm text-neutral-300">
               Запись, сведение, мастеринг, продакшн и сопровождение релизов.
               Работаем с артистами и брендами онлайн и офлайн.
             </p>
 
-            <button className="inline-flex items-center justify-center rounded-full border border-orange-400/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] bg-black hover:bg-orange-400 hover:text-black transition-colors">
+            <button
+              onClick={handleContact}
+              className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] bg-white text-black hover:bg-orange-500 hover:text-black transition-colors"
+            >
               Связаться
             </button>
           </div>
@@ -31,7 +37,7 @@ export default function Footer() {
                 Услуги
               </h3>
               <ul className="space-y-2 text-[13px]">
-                {[
+                {[ 
                   "Все услуги",
                   "Запись",
                   "Сведение и мастеринг",
@@ -41,12 +47,12 @@ export default function Footer() {
                   "Выгрузка релиза",
                 ].map((t) => (
                   <li key={t}>
-                    <a
-                      href="#"
+                    <button
+                      onClick={handleServices}
                       className="hover:text-orange-300 transition-colors"
                     >
                       {t}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -57,21 +63,21 @@ export default function Footer() {
                 О нас
               </h3>
               <ul className="space-y-2 text-[13px]">
-                {[
-                  "Оборудование",
-                  "Контакты",
-                  "С кем работали",
-                  "Студии Phase Records",
-                ].map((t) => (
-                  <li key={t}>
-                    <a
-                      href="#"
-                      className="hover:text-orange-300 transition-colors"
-                    >
-                      {t}
-                    </a>
-                  </li>
-                ))}
+                  {[ 
+                    { label: "Оборудование", action: handleServices },
+                    { label: "Контакты", action: handleContact },
+                    { label: "С кем работали", action: handleServices },
+                    { label: "Студии Phase Records", action: handleServices },
+                  ].map((item) => (
+                    <li key={item.label}>
+                      <button
+                        onClick={item.action}
+                        className="hover:text-orange-300 transition-colors"
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ))}
               </ul>
             </div>
 
@@ -80,14 +86,19 @@ export default function Footer() {
                 More info
               </h3>
               <ul className="space-y-2 text-[13px]">
-                {["FAQ", "Цены", "Статьи", "Отзывы"].map((t) => (
-                  <li key={t}>
-                    <a
-                      href="#"
+                {[
+                  { label: "FAQ", action: handleServices },
+                  { label: "Цены", action: handleServices },
+                  { label: "Статьи", action: handleServices },
+                  { label: "Отзывы", action: handleBooking },
+                ].map((item) => (
+                  <li key={item.label}>
+                    <button
+                      onClick={item.action}
                       className="hover:text-orange-300 transition-colors"
                     >
-                      {t}
-                    </a>
+                      {item.label}
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -96,7 +107,7 @@ export default function Footer() {
         </div>
 
         {/* Нижний блок */}
-        <div className="border-top border-orange-500/20 pt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="border-t border-white/10 pt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <span className="text-[11px] uppercase tracking-[0.26em] text-neutral-500">
               Мы в сети
@@ -105,7 +116,8 @@ export default function Footer() {
               {["VK", "TG", "IG*"].map((label) => (
                 <button
                   key={label}
-                  className="w-8 h-8 rounded-full border border-orange-500/60 bg-neutral-900 flex items-center justify-center text-[11px] font-semibold text-neutral-200 hover:bg-orange-400 hover:text-black transition-colors"
+                  onClick={handleContact}
+                  className="w-8 h-8 rounded-full border border-white/20 bg-black flex items-center justify-center text-[11px] font-semibold text-neutral-200 hover:border-orange-400 hover:text-orange-300 transition-colors"
                 >
                   {label}
                 </button>

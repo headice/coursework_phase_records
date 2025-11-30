@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./input.css";
 import Header from "./components/Header.jsx";
 import Services from "./components/Services.jsx";
@@ -7,8 +8,23 @@ import Credits from "./components/Credits.jsx";
 import AudioPlayerForDemo from "./components/AudioPlayerForDemo.jsx";
 import HardwareAndSoftwareInfo from "./components/HardwareAndSofrwareInfo.jsx";
 import PluginsInfo from "./components/PluginsInfo.jsx";
+import RequestModal from "./components/RequestModal.jsx";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [requestOpen, setRequestOpen] = useState(false);
+
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById("services");
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/shop");
+    }
+  };
+
+  const goToBooking = () => navigate("/booking");
+
   return (
     <div className="bg-black text-white font-sans min-h-screen flex flex-col">
       <Header />
@@ -62,11 +78,17 @@ const Home = () => {
 
               {/* CTA-кнопки */}
               <div className="mt-8 flex flex-wrap gap-4">
-                <button className="px-10 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm md:text-base font-semibold uppercase tracking-wide shadow-[0_18px_45px_-18px_rgba(249,115,22,1)] transition">
+                <button
+                  onClick={goToBooking}
+                  className="px-10 py-3 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-sm md:text-base font-semibold uppercase tracking-wide transition"
+                >
                   Забронировать время
                 </button>
 
-                <button className="px-6 py-3 rounded-full border border-orange-500/40 bg-black/60 hover:bg-black text-xs md:text-sm uppercase tracking-wide text-gray-200 transition">
+                <button
+                  onClick={scrollToServices}
+                  className="px-6 py-3 rounded-full border border-white/10 bg-black/70 hover:border-orange-400 text-xs md:text-sm uppercase tracking-wide text-gray-200 transition"
+                >
                   Смотреть услуги
                 </button>
               </div>
@@ -183,9 +205,10 @@ const Home = () => {
 
             <div className="flex flex-col items-center gap-4">
               <button
+                onClick={() => setRequestOpen(true)}
                 className="
-                flex items-center gap-3 
-                px-12 py-4 
+                flex items-center gap-3
+                px-12 py-4
                 rounded-2xl 
                 text-lg font-semibold 
                 bg-gradient-to-r from-orange-500 to-orange-600
@@ -212,6 +235,12 @@ const Home = () => {
         <HardwareAndSoftwareInfo />
         <PluginsInfo />
       </main>
+
+      <RequestModal
+        open={requestOpen}
+        onClose={() => setRequestOpen(false)}
+        preset={{ type: "service", title: "Консультация" }}
+      />
 
       <Footer />
     </div>
