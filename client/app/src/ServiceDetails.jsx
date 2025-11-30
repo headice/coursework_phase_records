@@ -1,15 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
+import RequestModal from "./components/RequestModal.jsx";
 
 export default function ServiceDetails() {
   const { serviceId } = useParams();
   const { services } = useContext(ShopContext);
   const navigate = useNavigate();
+  const [requestOpen, setRequestOpen] = useState(false);
 
   const service = services.find((item) => item.id === serviceId);
+  const isRecording = service?.id === "recording";
 
   if (!service) {
     return (
@@ -53,6 +56,11 @@ export default function ServiceDetails() {
                 <p className="text-sm sm:text-base text-gray-200 max-w-2xl leading-relaxed">
                   {service.fullDescription}
                 </p>
+                {!isRecording && (
+                  <p className="text-xs text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3 inline-flex max-w-xl">
+                    Бронирование онлайн доступно для записи вокала. По этой услуге оставьте заявку — мы подберём время и подтвердим детали.
+                  </p>
+                )}
               </div>
 
               <div className="bg-zinc-900/70 border border-orange-500/30 rounded-2xl p-5 space-y-2 w-full lg:max-w-sm shadow-[0_24px_80px_-40px_rgba(249,115,22,0.35)]">
@@ -65,10 +73,14 @@ export default function ServiceDetails() {
                   <span className="font-semibold text-orange-300">{service.price}</span>
                 </div>
                 <button
-                  onClick={() => navigate(`/booking?service=${service.id}`)}
+                  onClick={() =>
+                    isRecording
+                      ? navigate(`/booking?service=${service.id}`)
+                      : setRequestOpen(true)
+                  }
                   className="w-full mt-3 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-black font-semibold uppercase tracking-wide shadow-[0_14px_40px_-18px_rgba(249,115,22,0.8)] hover:scale-[1.01] transition"
                 >
-                  Забронировать
+                  {isRecording ? "Забронировать" : "Оставить заявку"}
                 </button>
                 <button
                   onClick={() => navigate("/shop")}
@@ -105,6 +117,12 @@ export default function ServiceDetails() {
       </main>
 
       <Footer />
+
+      <RequestModal
+        open={Boolean(requestOpen && !isRecording)}
+        onClose={() => setRequestOpen(false)}
+        preset={{ title: service.title, type: "service" }}
+      />
     </div>
   );
 }

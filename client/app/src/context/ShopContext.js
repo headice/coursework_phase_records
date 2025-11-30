@@ -10,11 +10,14 @@ export const ShopContext = createContext({
   clearCart: () => {},
   bookings: [],
   bookService: () => {},
+  requests: [],
+  addRequest: () => {},
 });
 
 export function ShopProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [bookings, setBookings] = useState([]);
+  const [requests, setRequests] = useState([]);
 
   const addToCart = (item) => {
     setCartItems((prev) => {
@@ -51,6 +54,17 @@ export function ShopProvider({ children }) {
     ]);
   };
 
+  const addRequest = (request) => {
+    setRequests((prev) => [
+      ...prev,
+      {
+        ...request,
+        id: `request-${Date.now()}`,
+        createdAt: new Date().toISOString(),
+      },
+    ]);
+  };
+
   const value = useMemo(
     () => ({
       services,
@@ -61,8 +75,10 @@ export function ShopProvider({ children }) {
       clearCart,
       bookings,
       bookService,
+      requests,
+      addRequest,
     }),
-    [cartItems, bookings]
+    [cartItems, bookings, requests]
   );
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

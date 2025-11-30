@@ -1,13 +1,15 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "../input.css";
 import { ShopContext } from "../context/ShopContext";
+import RequestModal from "./RequestModal.jsx";
 
 export default function ServicesSection() {
   const scrollRef = useRef(null);
   const { services } = useContext(ShopContext);
   const navigate = useNavigate();
+  const [requestItem, setRequestItem] = useState(null);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -17,6 +19,15 @@ export default function ServicesSection() {
       left: direction === "left" ? -(cardWidth + gap) : cardWidth + gap,
       behavior: "smooth",
     });
+  };
+
+  const handleBookingClick = (event, service) => {
+    event.stopPropagation();
+    if (service.id === "recording") {
+      navigate(`/booking?service=${service.id}`);
+    } else {
+      setRequestItem({ id: service.id, title: service.title, type: "service" });
+    }
   };
 
   return (
@@ -135,13 +146,10 @@ export default function ServicesSection() {
                     Узнать больше
                   </button>
                   <button
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      navigate(`/booking?service=${service.id}`);
-                    }}
+                    onClick={(event) => handleBookingClick(event, service)}
                     className="border border-white/20 hover:border-orange-400 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                   >
-                    Забронировать
+                    {service.id === "recording" ? "Забронировать" : "Оставить заявку"}
                   </button>
                 </div>
               </div>
@@ -161,6 +169,11 @@ export default function ServicesSection() {
           </div>
         </div>
       </div>
+      <RequestModal
+        open={Boolean(requestItem)}
+        onClose={() => setRequestItem(null)}
+        preset={requestItem}
+      />
     </section>
   );
 }

@@ -1,16 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./input.css";
 import { useNavigate } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
+import RequestModal from "./components/RequestModal.jsx";
 
 const Shop = () => {
   const { services, plugins, addToCart } = useContext(ShopContext);
   const navigate = useNavigate();
+  const [requestItem, setRequestItem] = useState(null);
 
   const handleServiceClick = (serviceId) => navigate(`/services/${serviceId}`);
-  const handleServiceBooking = (serviceId) => navigate(`/booking?service=${serviceId}`);
+  const handleServiceBooking = (serviceId) => {
+    if (serviceId === "recording") {
+      navigate(`/booking?service=${serviceId}`);
+    } else {
+      const service = services.find((item) => item.id === serviceId);
+      setRequestItem({ id: serviceId, title: service?.title, type: "service" });
+    }
+  };
 
   const handlePluginClick = (pluginId) => navigate(`/plugins/${pluginId}`);
   const handleAddToCart = (plugin) => {
@@ -39,14 +48,14 @@ const Shop = () => {
                 <span className="block text-orange-400">которыми мы пользуемся</span>
               </h1>
               <p className="text-sm sm:text-base text-gray-200 max-w-2xl">
-                Добавляйте услуги в бронирование или плагины в корзину. Каждая карточка открывается для подробностей.
+                Онлайн-бронирование доступно для записи вокала, а по остальным услугам можно оставить заявку. Плагины добавляйте в корзину — каждая карточка открывается для подробностей.
               </p>
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => navigate("/booking")}
                   className="px-8 py-3 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-sm font-semibold uppercase tracking-wide transition"
                 >
-                  Забронировать студию
+                  Записаться на вокал
                 </button>
                 <button
                   onClick={() => navigate("/cart")}
@@ -113,19 +122,19 @@ const Shop = () => {
                       </div>
 
                       <div className="flex flex-col gap-2">
-                        <button
-                          onClick={() => handleServiceClick(service.id)}
-                          className="px-4 py-2 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors"
-                        >
-                          Подробнее
-                        </button>
-                        <button
-                          onClick={() => handleServiceBooking(service.id)}
-                          className="px-4 py-2 rounded-full border border-white/20 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-200 hover:text-orange-300 hover:border-orange-400 transition-colors"
-                        >
-                          Забронировать
-                        </button>
-                      </div>
+                          <button
+                            onClick={() => handleServiceClick(service.id)}
+                            className="px-4 py-2 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors"
+                          >
+                            Подробнее
+                          </button>
+                          <button
+                            onClick={() => handleServiceBooking(service.id)}
+                            className="px-4 py-2 rounded-full border border-white/20 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-200 hover:text-orange-300 hover:border-orange-400 transition-colors"
+                          >
+                            {service.id === "recording" ? "Забронировать" : "Оставить заявку"}
+                          </button>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -205,6 +214,12 @@ const Shop = () => {
           </div>
         </section>
       </main>
+
+      <RequestModal
+        open={Boolean(requestItem)}
+        onClose={() => setRequestItem(null)}
+        preset={requestItem}
+      />
 
       <Footer />
     </div>

@@ -21,26 +21,29 @@ export default function Booking() {
   const { services, bookService } = useContext(ShopContext);
   const navigate = useNavigate();
   const query = useQuery();
-  const [form, setForm] = useState(() => {
-    const serviceId = query.get("service") || initialForm.serviceId;
-    return { ...initialForm, serviceId };
-  });
+  const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [modalData, setModalData] = useState(null);
 
-  const selectedService = useMemo(
-    () => services.find((service) => service.id === form.serviceId),
-    [services, form.serviceId]
+  const recordingService = useMemo(
+    () => services.find((service) => service.id === "recording"),
+    [services]
   );
+  const selectedService = recordingService;
+  const requestedService = query.get("service");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (name === "serviceId") return;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    bookService({ ...form });
+    bookService({
+      ...form,
+      serviceId: recordingService?.id || initialForm.serviceId,
+    });
     setSubmitted(true);
     setModalData({
       ...form,
@@ -76,6 +79,11 @@ export default function Booking() {
                 <p className="text-sm sm:text-base text-gray-300">
                   Оставьте заявку: мы подтвердим время, уточним задачу и подготовим зал под ваш проект.
                 </p>
+                {requestedService && requestedService !== "recording" && (
+                  <p className="text-xs text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3 max-w-xl">
+                    Онлайн-бронирование доступно для записи вокала. Для других услуг отправьте заявку через их карточку — мы вернёмся с предложением времени.
+                  </p>
+                )}
               </div>
 
               {selectedService && (
@@ -125,21 +133,13 @@ export default function Booking() {
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
-                  <label className="flex flex-col gap-2 text-sm text-gray-200">
+                  <div className="flex flex-col gap-2 text-sm text-gray-200">
                     Услуга
-                    <select
-                      name="serviceId"
-                      value={form.serviceId}
-                      onChange={handleChange}
-                      className="rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
-                    >
-                      {services.map((service) => (
-                        <option key={service.id} value={service.id}>
-                          {service.title}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                    <div className="rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm flex items-center justify-between">
+                      <span>{selectedService?.title || "Запись вокала и инструментов"}</span>
+                      <span className="text-[11px] uppercase tracking-[0.18em] text-orange-300">только онлайн</span>
+                    </div>
+                  </div>
 
                   <label className="flex flex-col gap-2 text-sm text-gray-200">
                     Дата
@@ -208,6 +208,7 @@ export default function Booking() {
                   <li>Фиксируем время и задачу, готовим оборудование заранее.</li>
                   <li>Присылаем вам адрес, чек-лист по подготовке и контакты инженера.</li>
                   <li>После сессии можно сразу оставить трек на сведение или мастеринг.</li>
+                  <li>Если нужна другая услуга — отправьте заявку из её карточки, мы подтвердим время отдельно.</li>
                 </ul>
 
                 <div className="pt-2 space-y-2 text-xs text-gray-400">
