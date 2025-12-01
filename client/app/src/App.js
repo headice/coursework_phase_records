@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Suspense, lazy } from "react";
 import { ShopProvider } from "./context/ShopContext";
+import { AuthProvider } from "./context/AuthContext";
 import PageTransition from "./components/PageTransition.jsx";
 
 const Home = lazy(() => import("./Home.jsx"));
@@ -52,11 +53,13 @@ function AppRoutes() {
 function App() {
   return (
     <div className="App">
-      <ShopProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </ShopProvider>
+      <AuthProvider>
+        <ShopProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </ShopProvider>
+      </AuthProvider>
     </div>
   );
 }

@@ -3,12 +3,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
+import { AuthContext } from "./context/AuthContext";
 
 export default function ServiceDetails() {
   const { serviceId } = useParams();
   const { services, addToCart } = useContext(ShopContext);
+  const { requireAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
+  const [authMessage, setAuthMessage] = useState("");
 
   const service = services.find((item) => item.id === serviceId);
   const isRecording = service?.id === "recording";
@@ -60,6 +63,11 @@ export default function ServiceDetails() {
                     Бронирование онлайн доступно для записи вокала. По этой услуге оставьте заявку — мы подберём время и подтвердим детали.
                   </p>
                 )}
+                {authMessage && (
+                  <p className="text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3 max-w-xl">
+                    {authMessage}
+                  </p>
+                )}
               </div>
 
               <div className="bg-zinc-900/70 border border-orange-500/30 rounded-2xl p-5 space-y-2 w-full lg:max-w-sm shadow-[0_24px_80px_-40px_rgba(249,115,22,0.35)]">
@@ -73,6 +81,11 @@ export default function ServiceDetails() {
                 </div>
                 <button
                   onClick={() => {
+                    setAuthMessage("");
+                    if (!requireAuth(() => setAuthMessage("Войдите или активируйте тестовый профиль, чтобы оформить услугу."))) {
+                      navigate("/login");
+                      return;
+                    }
                     if (isRecording) {
                       navigate(`/booking?service=${service.id}`);
                     } else {

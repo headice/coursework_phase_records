@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import { ShopContext } from "./context/ShopContext";
+import { AuthContext } from "./context/AuthContext";
 import "./input.css";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useContext(AuthContext);
   const { bookings, cartItems } = useContext(ShopContext);
-  const username = localStorage.getItem("username") || "Гость";
 
   const total = useMemo(() => {
     return cartItems.reduce((sum, item) => {
@@ -17,11 +18,45 @@ const Profile = () => {
     }, 0);
   }, [cartItems]);
 
+  const username = user?.username || "Гость";
+
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     navigate("/");
-    window.location.reload();
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="bg-black text-white font-sans min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1 flex items-center justify-center px-4">
+          <div className="max-w-md text-center space-y-4 bg-zinc-950/70 border border-orange-500/25 rounded-2xl p-6">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400">профиль</p>
+            <h1 className="text-2xl font-bold">Нужен вход</h1>
+            <p className="text-sm text-gray-300">
+              Чтобы увидеть свои бронирования и корзину, войдите через тестовый профиль
+              или зарегистрируйтесь.
+            </p>
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={() => navigate("/login")}
+                className="px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-black font-semibold uppercase tracking-wide"
+              >
+                Войти
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="px-6 py-3 rounded-xl border border-orange-500/40 text-sm uppercase tracking-wide text-gray-200 hover:text-orange-300 hover:border-orange-400 transition"
+              >
+                Регистрация
+              </button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-black text-white font-sans min-h-screen flex flex-col">

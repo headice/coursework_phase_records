@@ -1,16 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./input.css";
 import { useNavigate } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
+import { AuthContext } from "./context/AuthContext";
 
 const Shop = () => {
   const { services, plugins, addToCart } = useContext(ShopContext);
+  const { requireAuth } = useContext(AuthContext);
+  const [authNotice, setAuthNotice] = useState("");
   const navigate = useNavigate();
 
   const handleServiceClick = (serviceId) => navigate(`/services/${serviceId}`);
   const handleServiceBooking = (serviceId) => {
+    setAuthNotice("");
+    if (!requireAuth(() => setAuthNotice("Войдите, чтобы оформить покупку или бронь."))) {
+      navigate("/login");
+      return;
+    }
+
     if (serviceId === "recording") {
       navigate(`/booking?service=${serviceId}`);
     } else {
@@ -29,6 +38,11 @@ const Shop = () => {
 
   const handlePluginClick = (pluginId) => navigate(`/plugins/${pluginId}`);
   const handleAddToCart = (plugin) => {
+    setAuthNotice("");
+    if (!requireAuth(() => setAuthNotice("Авторизуйтесь, чтобы добавить плагины в корзину."))) {
+      navigate("/login");
+      return;
+    }
     addToCart({
       id: plugin.id,
       name: plugin.name,
@@ -56,6 +70,11 @@ const Shop = () => {
               <p className="text-sm sm:text-base text-gray-200 max-w-2xl">
                 Онлайн-бронирование доступно для записи вокала, а по остальным услугам можно оставить заявку. Плагины добавляйте в корзину — каждая карточка открывается для подробностей.
               </p>
+              {authNotice && (
+                <p className="text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3">
+                  {authNotice}
+                </p>
+              )}
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => navigate("/booking")}

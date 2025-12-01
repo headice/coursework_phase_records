@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import "./input.css";
+import { AuthContext } from "./context/AuthContext";
 
 const initialState = {
   username: "",
@@ -11,6 +12,7 @@ const initialState = {
 };
 
 const Registration = () => {
+  const { register, loginTestProfile, testProfile } = useContext(AuthContext);
   const [formData, setFormData] = useState(initialState);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -22,11 +24,18 @@ const Registration = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    localStorage.setItem("token", "phase-demo-token");
-    localStorage.setItem("username", formData.username || "Гость");
+    register(formData);
     setMessage("Аккаунт создан! Можно переходить в профиль или к бронированию.");
     setFormData(initialState);
     setTimeout(() => navigate("/profile"), 600);
+  };
+
+  const handleTestRegister = () => {
+    loginTestProfile();
+    setMessage(
+      "Активирован тестовый профиль demo@phase.studio / phase123 — можно покупать и бронировать."
+    );
+    setTimeout(() => navigate("/profile"), 500);
   };
 
   return (
@@ -100,6 +109,13 @@ const Registration = () => {
                   </button>
                   <button
                     type="button"
+                    onClick={handleTestRegister}
+                    className="px-6 py-3 rounded-xl bg-black/60 border border-orange-500/40 text-sm uppercase tracking-wide text-gray-200 hover:text-orange-300 hover:border-orange-400 transition"
+                  >
+                    Тестовый профиль
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => navigate("/login")}
                     className="px-6 py-3 rounded-xl border border-orange-500/40 text-sm uppercase tracking-wide text-gray-200 hover:text-orange-300 hover:border-orange-400 transition"
                   >
@@ -132,6 +148,7 @@ const Registration = () => {
                 <div className="text-xs text-gray-500 space-y-1">
                   <p>Регистрация оффлайн: мы сохраняем данные локально, без серверной отправки.</p>
                   <p>Можно в любой момент выйти из профиля через меню.</p>
+                  <p>Тестовый профиль: {testProfile.email} / {testProfile.password}</p>
                 </div>
               </div>
             </div>

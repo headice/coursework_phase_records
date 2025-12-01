@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import { ShopContext } from "./context/ShopContext";
+import { AuthContext } from "./context/AuthContext";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -19,11 +20,13 @@ const initialForm = {
 
 export default function Booking() {
   const { services, bookService } = useContext(ShopContext);
+  const { requireAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const query = useQuery();
   const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [authMessage, setAuthMessage] = useState("");
 
   const recordingService = useMemo(
     () => services.find((service) => service.id === "recording"),
@@ -40,6 +43,11 @@ export default function Booking() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setAuthMessage("");
+    if (!requireAuth(() => setAuthMessage("Авторизуйтесь или войдите тестовым профилем, чтобы забронировать сессию."))) {
+      navigate("/login");
+      return;
+    }
     bookService({
       ...form,
       serviceId: recordingService?.id || initialForm.serviceId,
@@ -76,9 +84,14 @@ export default function Booking() {
                   Записаться на сессию
                   <span className="block text-orange-500">Phase Records</span>
                 </h1>
-                <p className="text-sm sm:text-base text-gray-300">
-                  Оставьте заявку: мы подтвердим время, уточним задачу и подготовим зал под ваш проект.
+              <p className="text-sm sm:text-base text-gray-300">
+                Оставьте заявку: мы подтвердим время, уточним задачу и подготовим зал под ваш проект.
+              </p>
+              {authMessage && (
+                <p className="text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3 max-w-xl">
+                  {authMessage}
                 </p>
+              )}
                 {requestedService && requestedService !== "recording" && (
                   <p className="text-xs text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3 max-w-xl">
                     Онлайн-бронирование доступно для записи вокала. Для других услуг отправьте заявку через их карточку — мы вернёмся с предложением времени.

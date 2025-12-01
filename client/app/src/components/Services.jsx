@@ -1,12 +1,15 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "../input.css";
 import { ShopContext } from "../context/ShopContext";
+import { AuthContext } from "../context/AuthContext";
 
 export default function ServicesSection() {
   const scrollRef = useRef(null);
   const { services, addToCart } = useContext(ShopContext);
+  const { requireAuth } = useContext(AuthContext);
+  const [authPrompt, setAuthPrompt] = useState("");
   const navigate = useNavigate();
 
   const scroll = (direction) => {
@@ -21,6 +24,11 @@ export default function ServicesSection() {
 
   const handleBookingClick = (event, service) => {
     event.stopPropagation();
+    setAuthPrompt("");
+    if (!requireAuth(() => setAuthPrompt("Войдите, чтобы бронировать или покупать услуги."))) {
+      navigate("/login");
+      return;
+    }
     if (service.id === "recording") {
       navigate(`/booking?service=${service.id}`);
     } else {
@@ -63,6 +71,11 @@ export default function ServicesSection() {
           <br />
           на уровне профессионального качества!
         </motion.p>
+        {authPrompt && (
+          <p className="mt-4 text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3 inline-block">
+            {authPrompt}
+          </p>
+        )}
       </div>
 
       <div className="relative w-full">

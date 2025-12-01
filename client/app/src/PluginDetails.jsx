@@ -1,18 +1,26 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
+import { AuthContext } from "./context/AuthContext";
 
 export default function PluginDetails() {
   const { pluginId } = useParams();
   const { plugins, addToCart } = useContext(ShopContext);
+  const { requireAuth } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [authMessage, setAuthMessage] = useState("");
 
   const plugin = plugins.find((item) => item.id === pluginId);
 
   const handleAddToCart = () => {
     if (!plugin) return;
+    setAuthMessage("");
+    if (!requireAuth(() => setAuthMessage("Войдите или используйте тестовый профиль, чтобы купить."))) {
+      navigate("/login");
+      return;
+    }
     addToCart({
       id: plugin.id,
       name: plugin.name,
@@ -61,6 +69,11 @@ export default function PluginDetails() {
                   {plugin.description}
                 </p>
                 <p className="text-xs uppercase tracking-[0.2em] text-orange-300">{plugin.tag}</p>
+                {authMessage && (
+                  <p className="text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3 max-w-lg">
+                    {authMessage}
+                  </p>
+                )}
               </div>
 
               <div className="bg-zinc-900/70 border border-orange-500/30 rounded-2xl p-5 space-y-2 w-full lg:max-w-sm shadow-[0_24px_80px_-40px_rgba(249,115,22,0.35)]">

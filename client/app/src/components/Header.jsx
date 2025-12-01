@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../img/logo-rackext-svgrepo-com.svg";
 import { Menu, X, ShoppingCart, User } from "lucide-react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
   const navigate = useNavigate();
+  const { isAuthenticated, logout } = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
 
@@ -20,10 +22,9 @@ export default function Header() {
   }, []);
 
   const handleNavigation = (path) => {
-    const token = localStorage.getItem("token");
     const protectedRoutes = ["/profile", "/transit"];
 
-    if (protectedRoutes.includes(path) && !token) {
+    if (protectedRoutes.includes(path) && !isAuthenticated) {
       const confirmLogin = window.confirm(
         "Войдите или зарегистрируйтесь для доступа к ресурсу"
       );
@@ -32,14 +33,6 @@ export default function Header() {
     }
 
     navigate(path);
-  };
-
-  const isAuth = !!localStorage.getItem("token");
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-    window.location.reload();
   };
 
   const navItems = [
@@ -107,7 +100,7 @@ export default function Header() {
             <User size={22} />
           </button>
 
-          {isAuth ? (
+          {isAuthenticated ? (
             <button
               className="ml-2 text-xs font-medium uppercase tracking-wide text-gray-300 hover:text-orange-400 transition"
               onClick={logout}
@@ -161,7 +154,7 @@ export default function Header() {
             </button>
           ))}
 
-          {!isAuth ? (
+          {!isAuthenticated ? (
             <>
               <button
                 className="block w-full py-2 text-left text-sm uppercase tracking-wide hover:text-orange-400"

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import "./input.css";
+import { AuthContext } from "./context/AuthContext";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login, loginTestProfile, testProfile } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [success, setSuccess] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,13 +20,29 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!formData.email || !formData.password) {
+      setSuccess("");
       return setError("Укажите почту и пароль, чтобы войти.");
     }
 
-    localStorage.setItem("token", "phase-demo-token");
-    localStorage.setItem("username", formData.email.split("@")[0] || "Гость");
+    const result = login({ email: formData.email, password: formData.password });
+
+    if (!result.success) {
+      setError(result.error || "Не удалось войти. Попробуйте снова.");
+      setSuccess("");
+      return;
+    }
+
     setError("");
-    navigate("/profile");
+    setSuccess("Вход выполнен. Перенаправляем в профиль...");
+    setTimeout(() => navigate("/profile"), 400);
+  };
+
+  const handleTestLogin = () => {
+    loginTestProfile();
+    setFormData({ email: testProfile.email, password: testProfile.password });
+    setSuccess("Вы вошли через тестовый профиль.");
+    setError("");
+    setTimeout(() => navigate("/profile"), 400);
   };
 
   return (
@@ -76,7 +95,14 @@ const Login = () => {
                 </label>
 
                 {error && (
-                  <p className="text-sm text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3">{error}</p>
+                  <p className="text-sm text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3">
+                    {error}
+                  </p>
+                )}
+                {success && (
+                  <p className="text-sm text-green-200 bg-green-500/10 border border-green-500/30 rounded-xl px-4 py-3">
+                    {success}
+                  </p>
                 )}
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
@@ -85,6 +111,13 @@ const Login = () => {
                     className="px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-black font-semibold uppercase tracking-wide shadow-[0_14px_40px_-18px_rgba(249,115,22,0.8)] hover:scale-[1.01] transition"
                   >
                     Войти
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleTestLogin}
+                    className="px-6 py-3 rounded-xl bg-black/60 border border-orange-500/40 text-sm uppercase tracking-wide text-gray-200 hover:text-orange-300 hover:border-orange-400 transition"
+                  >
+                    Тестовый профиль
                   </button>
                   <button
                     type="button"

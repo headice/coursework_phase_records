@@ -1,13 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+import { AuthContext } from "../context/AuthContext";
 import vsthero from "../img/vsthero.png";
 
 export default function StudioSaleSection() {
   const { plugins, addToCart } = useContext(ShopContext);
+  const { requireAuth } = useContext(AuthContext);
+  const [authMessage, setAuthMessage] = useState("");
   const navigate = useNavigate();
 
   const handleAddToCart = (plugin) => {
+    setAuthMessage("");
+    if (!requireAuth(() => setAuthMessage("Авторизуйтесь, чтобы купить плагин."))) {
+      navigate("/login");
+      return;
+    }
     addToCart({
       id: plugin.id,
       name: plugin.name,
@@ -45,6 +53,11 @@ export default function StudioSaleSection() {
             <p className="text-sm md:text-base font-semibold tracking-wide uppercase text-orange-400">
               Предзаказ даёт раннюю цену и все обновления после релиза.
             </p>
+            {authMessage && (
+              <p className="text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3 inline-block">
+                {authMessage}
+              </p>
+            )}
           </div>
 
           <div className="relative flex justify-center md:justify-end">

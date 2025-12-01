@@ -2,10 +2,15 @@ import { useContext, useMemo, useState } from "react";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import { ShopContext } from "./context/ShopContext";
+import { AuthContext } from "./context/AuthContext";
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart } = useContext(ShopContext);
+  const { requireAuth, user } = useContext(AuthContext);
   const [checkedOut, setCheckedOut] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const [authWarning, setAuthWarning] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("card");
 
   const total = useMemo(() => {
     return cartItems.reduce((sum, item) => {
@@ -15,7 +20,16 @@ const Cart = () => {
   }, [cartItems]);
 
   const handleCheckout = () => {
+    setAuthWarning("");
+    if (!requireAuth(() => setAuthWarning("Войдите через тестовый профиль или регистрацию, чтобы перейти к оплате."))) {
+      return;
+    }
+    setShowPayment(true);
+  };
+
+  const confirmPayment = () => {
     clearCart();
+    setShowPayment(false);
     setCheckedOut(true);
     setTimeout(() => setCheckedOut(false), 4000);
   };
@@ -32,6 +46,12 @@ const Cart = () => {
             </div>
             <p className="text-sm text-gray-300">Все кнопки активны: можно удалить или оформить заказ.</p>
           </div>
+
+          {authWarning && (
+            <p className="mt-4 text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3">
+              {authWarning}
+            </p>
+          )}
 
           {cartItems.length === 0 && !checkedOut && (
             <p className="mt-8 text-gray-400">Пока пусто. Добавьте услуги или плагины из магазина.</p>
@@ -97,6 +117,82 @@ const Cart = () => {
         </section>
       </main>
       <Footer />
+
+      {showPayment && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+          <div className="relative bg-zinc-950 border border-orange-500/30 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[0_24px_90px_-45px_rgba(249,115,22,0.8)] animate-[fadeIn_0.25s_ease]">
+            <button
+              type="button"
+              onClick={() => setShowPayment(false)}
+              className="absolute top-3 right-3 text-gray-400 hover:text-white transition"
+              aria-label="Закрыть"
+            >
+              ✕
+            </button>
+
+            <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400 mb-2">оплата (демо)</p>
+            <h3 className="text-2xl font-bold mb-1">Проверка оплаты без списания</h3>
+            <p className="text-sm text-gray-300 mb-4">
+              Мы показываем заглушку: ничего не списывается. Используйте тестовую карту, чтобы завершить оформление и увидеть результат.
+            </p>
+
+            <div className="space-y-3 text-sm text-gray-200 bg-black/50 border border-orange-500/20 rounded-2xl p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400">Покупатель</span>
+                <span className="font-semibold text-orange-200">{user?.username || "Тестовый пользователь"}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400">Сумма</span>
+                <span className="font-semibold text-orange-200">{total.toLocaleString("ru-RU")} ₽</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400">Метод</span>
+                <div className="flex gap-2">
+                  {[
+                    { id: "card", label: "Карта" },
+                    { id: "sbp", label: "СБП" },
+                    { id: "crypto", label: "Crypto" },
+                  ].map((option) => (
+                    <button
+                      key={option.id}
+                      onClick={() => setPaymentMethod(option.id)}
+                      className={`px-3 py-2 rounded-lg border text-xs uppercase tracking-wide ${
+                        paymentMethod === option.id
+                          ? "border-orange-400 text-orange-200"
+                          : "border-white/15 text-gray-300 hover:border-orange-400"
+                      }`}
+                      type="button"
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2 text-xs text-gray-400">
+                <p>Тестовые реквизиты: 0000 0000 0000 0000, дата 12/34, CVC 000.</p>
+                <p>При нажатии ниже заказ считается оплаченным и очищает корзину.</p>
+              </div>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={confirmPayment}
+                className="w-full px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-black font-semibold uppercase tracking-wide transition"
+              >
+                Подтвердить оплату
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowPayment(false)}
+                className="w-full px-6 py-3 rounded-xl border border-orange-500/40 text-sm uppercase tracking-wide text-gray-200 hover:text-orange-300 hover:border-orange-400 transition"
+              >
+                Вернуться в корзину
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
