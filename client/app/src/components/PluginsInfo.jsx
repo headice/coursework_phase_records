@@ -51,7 +51,13 @@ export default function StudioSaleSection() {
             <div className="relative w-full max-w-md">
               <div className="absolute -inset-6 rounded-3xl bg-orange-500/15 blur-3xl opacity-80" />
               <div className="relative rounded-3xl overflow-hidden">
-                <img src={vsthero} alt="Инструменты и плагины" className="w-full h-full object-contain" />
+                <img
+                  src={vsthero}
+                  alt="Инструменты и плагины"
+                  className="w-full h-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
             </div>
           </div>

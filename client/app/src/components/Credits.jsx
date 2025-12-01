@@ -100,6 +100,8 @@ function CardVariantC({ release }) {
           src={covers[release.cover]}
           alt={release.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -127,6 +129,8 @@ function CardVariantB({ release }) {
           src={covers[release.cover]}
           alt={release.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
         />
 
         <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">

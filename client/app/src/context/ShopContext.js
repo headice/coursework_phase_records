@@ -1,4 +1,4 @@
-import { createContext, useMemo, useState } from "react";
+import { createContext, useCallback, useMemo, useState } from "react";
 import { plugins, services } from "../data/catalog";
 
 export const ShopContext = createContext({
@@ -19,7 +19,10 @@ export function ShopProvider({ children }) {
   const [bookings, setBookings] = useState([]);
   const [requests, setRequests] = useState([]);
 
-  const addToCart = (item) => {
+  const catalogServices = useMemo(() => services, []);
+  const catalogPlugins = useMemo(() => plugins, []);
+
+  const addToCart = useCallback((item) => {
     setCartItems((prev) => {
       const existing = prev.find(
         (cartItem) => cartItem.id === item.id && cartItem.type === item.type
@@ -35,15 +38,15 @@ export function ShopProvider({ children }) {
 
       return [...prev, { ...item, quantity: 1 }];
     });
-  };
+  }, []);
 
-  const removeFromCart = (id) => {
+  const removeFromCart = useCallback((id) => {
     setCartItems((prev) => prev.filter((cartItem) => cartItem.id !== id));
-  };
+  }, []);
 
-  const clearCart = () => setCartItems([]);
+  const clearCart = useCallback(() => setCartItems([]), []);
 
-  const bookService = (booking) => {
+  const bookService = useCallback((booking) => {
     setBookings((prev) => [
       ...prev,
       {
@@ -52,9 +55,9 @@ export function ShopProvider({ children }) {
         createdAt: new Date().toISOString(),
       },
     ]);
-  };
+  }, []);
 
-  const addRequest = (request) => {
+  const addRequest = useCallback((request) => {
     setRequests((prev) => [
       ...prev,
       {
@@ -63,12 +66,12 @@ export function ShopProvider({ children }) {
         createdAt: new Date().toISOString(),
       },
     ]);
-  };
+  }, []);
 
   const value = useMemo(
     () => ({
-      services,
-      plugins,
+      services: catalogServices,
+      plugins: catalogPlugins,
       cartItems,
       addToCart,
       removeFromCart,
@@ -78,7 +81,18 @@ export function ShopProvider({ children }) {
       requests,
       addRequest,
     }),
-    [cartItems, bookings, requests]
+    [
+      catalogPlugins,
+      catalogServices,
+      cartItems,
+      addToCart,
+      removeFromCart,
+      clearCart,
+      bookings,
+      bookService,
+      requests,
+      addRequest,
+    ]
   );
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

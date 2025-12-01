@@ -174,7 +174,13 @@ const Shop = () => {
                   className="bg-black/70 border border-white/10 rounded-2xl overflow-hidden flex flex-col shadow-[0_24px_60px_-40px_rgba(0,0,0,0.8)]"
                 >
                   <button type="button" className="relative h-36" onClick={() => handlePluginClick(plugin.id)}>
-                    <img src={plugin.image} alt={plugin.name} className="w-full h-full object-cover" />
+                    <img
+                      src={plugin.image}
+                      alt={plugin.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
                     {plugin.discount && (
                       <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white text-[11px] font-semibold uppercase tracking-[0.18em] text-black">
                         {plugin.discount}
