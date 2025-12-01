@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 
 import "./input.css";
@@ -8,8 +9,12 @@ import heroabout from "./img/hero_about.jpg";
 import engineer1 from "./img/staff1.jpg";
 import engineer2 from "./img/staff2.png";
 import engineer3 from "./img/staff3jpg.jpg";
+import RequestModal from "./components/RequestModal.jsx";
 
 const About = () => {
+  const navigate = useNavigate();
+  const [requestOpen, setRequestOpen] = useState(false);
+
   return (
     <div className="bg-black text-white font-sans min-h-screen">
       <Header />
@@ -41,10 +46,16 @@ const About = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
-              <button className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm md:text-base font-semibold uppercase tracking-wide shadow-[0_18px_45px_-18px_rgba(249,115,22,1)] transition">
+              <button
+                onClick={() => setRequestOpen(true)}
+                className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm md:text-base font-semibold uppercase tracking-wide shadow-[0_18px_45px_-18px_rgba(249,115,22,1)] transition"
+              >
                 Оставить заявку
               </button>
-              <button className="px-6 py-3 rounded-full border border-orange-500/40 bg-black/70 hover:bg-black text-xs md:text-sm uppercase tracking-wide text-gray-200 transition">
+              <button
+                onClick={() => navigate("/shop")}
+                className="px-6 py-3 rounded-full border border-orange-500/40 bg-black/70 hover:bg-black text-xs md:text-sm uppercase tracking-wide text-gray-200 transition"
+              >
                 Узнать об услугах
               </button>
             </div>
@@ -396,7 +407,10 @@ const About = () => {
           </div>
 
           <div className="flex flex-col gap-3 w-full sm:w-auto">
-            <button className="w-full sm:w-auto px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm font-semibold uppercase tracking-wide transition shadow-[0_18px_45px_-18px_rgba(249,115,22,0.8)]">
+            <button
+              onClick={() => setRequestOpen(true)}
+              className="w-full sm:w-auto px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-sm font-semibold uppercase tracking-wide transition shadow-[0_18px_45px_-18px_rgba(249,115,22,0.8)]"
+            >
               Оставить заявку
             </button>
             <p className="text-xs text-gray-400">
@@ -407,6 +421,12 @@ const About = () => {
       </main>
 
       <Footer />
+
+      <RequestModal
+        open={requestOpen}
+        onClose={() => setRequestOpen(false)}
+        preset={{ type: "service", title: "Консультация" }}
+      />
     </div>
   );
 };
