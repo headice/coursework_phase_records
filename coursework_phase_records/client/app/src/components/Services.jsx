@@ -1,9 +1,69 @@
-import React, { useContext, useRef, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "../input.css";
 import { ShopContext } from "../context/ShopContext";
 import { AuthContext } from "../context/AuthContext";
+
+const ServiceCard = memo(function ServiceCard({
+  service,
+  index,
+  onNavigate,
+  onBooking,
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{ y: -3 }}
+      className="relative min-w-[85%] sm:min-w-[45%] lg:min-w-[30%] xl:min-w-[23%] h-[420px] rounded-xl overflow-hidden snap-center cursor-pointer group border border-white/10 bg-neutral-950 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.8)] transition-all duration-400"
+      onClick={() => onNavigate(service.id)}
+    >
+      <img
+        src={service.image}
+        alt={service.title}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent" />
+
+      <div className="absolute inset-0 flex flex-col justify-end p-6 text-left">
+        <h3 className="text-xl font-semibold mb-2">
+          <span className="text-orange-400">{service.title} </span>
+          <span className="text-white">{service.subtitle}</span>
+        </h3>
+        <p className="text-gray-200 text-sm leading-relaxed opacity-90">
+          {service.shortDescription}
+        </p>
+
+        <div className="mt-4 flex items-center gap-3">
+          <button
+            onClick={(event) => onNavigate(service.id, event)}
+            className="bg-white text-black hover:bg-orange-500 hover:text-black py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+          >
+            Узнать больше
+          </button>
+          <button
+            onClick={(event) => onBooking(event, service)}
+            className="border border-white/20 hover:border-orange-400 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+          >
+            {service.id === "recording" ? "Забронировать" : "Купить"}
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+});
 
 export default function ServicesSection() {
   const scrollRef = useRef(null);
@@ -12,7 +72,7 @@ export default function ServicesSection() {
   const [authPrompt, setAuthPrompt] = useState("");
   const navigate = useNavigate();
 
-  const scroll = (direction) => {
+  const scroll = useCallback((direction) => {
     if (!scrollRef.current) return;
     const cardWidth = scrollRef.current.children[0]?.offsetWidth || 300;
     const gap = 24;
@@ -20,28 +80,55 @@ export default function ServicesSection() {
       left: direction === "left" ? -(cardWidth + gap) : cardWidth + gap,
       behavior: "smooth",
     });
-  };
+  }, []);
 
-  const handleBookingClick = (event, service) => {
-    event.stopPropagation();
-    setAuthPrompt("");
-    if (!requireAuth(() => setAuthPrompt("Войдите, чтобы бронировать или покупать услуги."))) {
-      navigate("/login");
-      return;
-    }
-    if (service.id === "recording") {
-      navigate(`/booking?service=${service.id}`);
-    } else {
-      addToCart({
-        id: service.id,
-        name: service.title,
-        price: service.price,
-        type: "service",
-        tag: service.subtitle,
-      });
-      navigate("/cart");
-    }
-  };
+  const navigateToService = useCallback(
+    (serviceId, event) => {
+      event?.stopPropagation();
+      navigate(`/services/${serviceId}`);
+    },
+    [navigate]
+  );
+
+  const handleBookingClick = useCallback(
+    (event, service) => {
+      event.stopPropagation();
+      setAuthPrompt("");
+      if (
+        !requireAuth(() =>
+          setAuthPrompt("Войдите, чтобы бронировать или покупать услуги.")
+        )
+      ) {
+        navigate("/login");
+        return;
+      }
+      if (service.id === "recording") {
+        navigate(`/booking?service=${service.id}`);
+      } else {
+        addToCart({
+          id: service.id,
+          name: service.title,
+          price: service.price,
+          type: "service",
+          tag: service.subtitle,
+        });
+        navigate("/cart");
+      }
+    },
+    [addToCart, navigate, requireAuth]
+  );
+
+  const dots = useMemo(
+    () =>
+      services.map((service) => (
+        <button
+          key={service.id}
+          onClick={() => navigateToService(service.id)}
+          className="w-2 h-2 bg-orange-500/50 rounded-full"
+        />
+      )),
+    [navigateToService, services]
+  );
 
   return (
     <section
@@ -123,67 +210,19 @@ export default function ServicesSection() {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {services.map((service, index) => (
-            <motion.div
+            <ServiceCard
               key={service.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -3 }}
-              className="relative min-w-[85%] sm:min-w-[45%] lg:min-w-[30%] xl:min-w-[23%] h-[420px] rounded-xl overflow-hidden snap-center cursor-pointer group border border-white/10 bg-neutral-950 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.8)] transition-all duration-400"
-              onClick={() => navigate(`/services/${service.id}`)}
-            >
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent" />
-
-              <div className="absolute inset-0 flex flex-col justify-end p-6 text-left">
-                <h3 className="text-xl font-semibold mb-2">
-                  <span className="text-orange-400">{service.title} </span>
-                  <span className="text-white">{service.subtitle}</span>
-                </h3>
-                <p
-                  className="text-gray-200 text-sm leading-relaxed opacity-90"
-                >
-                  {service.shortDescription}
-                </p>
-
-                <div className="mt-4 flex items-center gap-3">
-                  <button
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      navigate(`/services/${service.id}`);
-                    }}
-                    className="bg-white text-black hover:bg-orange-500 hover:text-black py-2 px-4 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    Узнать больше
-                  </button>
-                  <button
-                    onClick={(event) => handleBookingClick(event, service)}
-                    className="border border-white/20 hover:border-orange-400 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    {service.id === "recording" ? "Забронировать" : "Купить"}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
+              service={service}
+              index={index}
+              onNavigate={navigateToService}
+              onBooking={handleBookingClick}
+            />
           ))}
         </div>
 
         <div className="flex justify-center mt-6 md:hidden">
           <div className="flex space-x-2">
-            {services.map((service) => (
-              <button
-                key={service.id}
-                onClick={() => navigate(`/services/${service.id}`)}
-                className="w-2 h-2 bg-orange-500/50 rounded-full"
-              />
-            ))}
+            {dots}
           </div>
         </div>
       </div>
