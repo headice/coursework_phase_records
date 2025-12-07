@@ -41,7 +41,7 @@ const Home = () => {
           </div>
 
           {/* Контент */}
-          <div className="relative z-10 w-full max-w-6xl px-4 md:px-6 lg:px-8 py-28 flex flex-col lg:flex-row items-center lg:items-end gap-12">
+          <div className="relative z-10 w-full max-w-6xl px-4 md:px-6 lg:px-8 py-24 md:py-28 flex flex-col lg:flex-row items-center lg:items-end gap-12">
             {/* Левая колонка — текст */}
             <div className="flex-1 max-w-xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/40 bg-black/60 text-[11px] uppercase tracking-[0.25em] text-orange-300 mb-6">
@@ -63,15 +63,12 @@ const Home = () => {
               {/* Быстрые фичи */}
               <div className="mt-6 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-300">
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  
                   запись / сведение / мастеринг
                 </span>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  
                   авторский продакшн
                 </span>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  
                   релизы на всех площадках
                 </span>
               </div>
@@ -111,9 +108,40 @@ const Home = () => {
             </div>
 
             {/* Правая колонка — абстрактный мокап */}
- </div>
+            <div className="flex-1 w-full max-w-xl">
+              <div className="relative w-full aspect-[4/5] sm:aspect-[5/6] lg:aspect-[4/5] rounded-[28px] overflow-hidden border border-orange-500/30 bg-neutral-950/70 shadow-[0_25px_80px_-40px_rgba(0,0,0,1)]">
+                <div className="absolute inset-0 bg-main-hero-pattern bg-cover bg-center" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black via-black/40 to-orange-900/30" />
+
+                <div className="absolute top-4 right-4 px-3 py-1 text-[11px] uppercase tracking-[0.25em] rounded-full bg-black/70 border border-orange-500/40 text-orange-200">
+                  hi-end
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 flex flex-col gap-3 text-sm text-orange-50">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-block w-10 h-[2px] bg-orange-500" />
+                    <p className="text-xs uppercase tracking-[0.2em] text-gray-200">hybrid studio</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 text-xs sm:text-sm">
+                    <div className="rounded-2xl bg-black/60 border border-white/5 px-3 py-2">
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-orange-300">hardware</p>
+                      <p className="text-base font-semibold">Analog Chain</p>
+                    </div>
+                    <div className="rounded-2xl bg-black/60 border border-white/5 px-3 py-2">
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-orange-300">plugins</p>
+                      <p className="text-base font-semibold">Waves & Fabfilter</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Индикатор скролла вниз */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs text-gray-300">
+            <span className="h-10 w-px bg-gradient-to-b from-transparent via-orange-400/80 to-transparent" />
+            <span className="uppercase tracking-[0.25em] text-[10px]">scroll</span>
+          </div>
         </section>
 
         {/* О студии */}
@@ -147,18 +175,18 @@ const Home = () => {
             </div>
 
             {/* Правая часть */}
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <div
                 className="
-        relative w-full h-72 rounded-3xl overflow-hidden 
-        border border-orange-500/30 
+        relative w-full h-72 sm:h-80 rounded-3xl overflow-hidden
+        border border-orange-500/30
         shadow-[0_25px_80px_-40px_rgba(0,0,0,1)]
-        transition-all duration-300 
+        transition-all duration-300
         hover:scale-[1.015]
         hover:shadow-[0_25px_80px_-35px_rgba(249,115,22,0.25)]
       "
               >
-                <div className="absolute inset-0 bg-[url('./img/krupnym-planom-mikrofon-i-pop-fil-tr.jpg')] bg-cover bg-center" />
+                <div className="absolute inset-0 bg-main-info-pattern bg-cover bg-center" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-orange-900/40" />
 
                 <div className="absolute bottom-4 left-4 px-3 py-1 text-[11px] uppercase tracking-[0.2em] rounded-full bg-black/70 border border-orange-500/40 text-orange-200">
