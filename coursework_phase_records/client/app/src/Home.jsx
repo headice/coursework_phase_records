@@ -49,7 +49,7 @@ const Home = () => {
                 студия звукозаписи
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl font-extrabold leading-tight tracking-tight">
                 PHASE
                 <span className="text-orange-500"> RECORDS</span>
               </h1>

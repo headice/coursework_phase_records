@@ -136,7 +136,7 @@ export default function Header() {
 
       {/* Мобильное меню */}
       {mobileOpen && (
-        <div className="md:hidden bg-black/95 text-gray-100 px-6 pb-4 pt-2 space-y-3 border-t border-orange-500/30">
+        <div className="lg:hidden bg-black/95 text-gray-100 px-6 pb-4 pt-2 space-y-3 border-t border-orange-500/30">
           {[
             ...navItems,
             { label: "Корзина", path: "/cart" },
