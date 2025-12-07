@@ -71,7 +71,7 @@ export default function Header() {
         </div>
 
         {/* Навигация — десктоп */}
-        <nav className="hidden md:flex items-center gap-7 text-sm text-gray-100 font-medium">
+        <nav className="hidden lg:flex items-center gap-7 text-sm text-gray-100 font-medium">
           {navItems.map((item) => (
             <button
               key={item.path}
@@ -85,7 +85,7 @@ export default function Header() {
         </nav>
 
         {/* Иконки */}
-        <div className="hidden md:flex items-center space-x-4 text-gray-100">
+        <div className="hidden lg:flex items-center space-x-4 text-gray-100">
           <button
             className="hover:text-orange-400 transition"
             onClick={() => navigate("/cart")}
@@ -128,7 +128,7 @@ export default function Header() {
         {/* Бургер */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-gray-100"
+          className="lg:hidden text-gray-100"
         >
           {mobileOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
