@@ -31,7 +31,7 @@ const Home = () => {
 
       <main className="flex-1">
         {/* HERO / MELON-STYLE */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-[#0b0b0d] to-black">
           {/* Фоновые градиенты */}
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[url('./img/zvukovoi-mikser-v-studii-bg2.jpg')] bg-cover bg-center opacity-40" />
@@ -41,7 +41,7 @@ const Home = () => {
           </div>
 
           {/* Контент */}
-          <div className="relative z-10 w-full max-w-5xl px-4 md:px-6 lg:px-8 py-20 md:py-24 flex flex-col items-center lg:items-start gap-10 text-center lg:text-left">
+          <div className="relative z-10 w-full max-w-6xl px-4 md:px-8 lg:px-10 py-16 sm:py-20 lg:py-24 flex flex-col items-center md:items-start gap-10 text-center md:text-left">
             {/* Текст */}
             <div className="w-full max-w-3xl space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/40 bg-black/60 text-[11px] uppercase tracking-[0.25em] text-orange-300 mb-6">
@@ -49,12 +49,12 @@ const Home = () => {
                 студия звукозаписи
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight">
                 PHASE
                 <span className="text-orange-500"> RECORDS</span>
               </h1>
 
-              <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-lg">
+              <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl md:max-w-xl">
                 Место, где треки становятся релизами. Запись, сведение, мастеринг,
                 авторский продакшн и техническая поддержка на каждом этапе выхода
                 релиза.

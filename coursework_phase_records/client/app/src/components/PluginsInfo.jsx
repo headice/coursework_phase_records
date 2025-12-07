@@ -36,10 +36,10 @@ export default function StudioSaleSection() {
   return (
     <section className="w-full bg-gradient-to-br from-black via-black to-orange-800/30 text-white py-24">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
-        <div className="grid gap-10 md:grid-cols-2 items-center mb-20">
-          <div className="space-y-6">
+        <div className="grid gap-12 md:grid-cols-2 items-center mb-16 md:mb-20">
+          <div className="space-y-6 md:space-y-7">
             <p className="text-xs uppercase tracking-[0.25em] text-orange-400">phase plugins</p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight uppercase">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight uppercase">
               МЫ ТЕПЕРЬ РАЗРАБАТЫВАЕМ
               <br />
               <span className="text-orange-500">ПЛАГИНЫ</span>
@@ -76,7 +76,7 @@ export default function StudioSaleSection() {
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {plugins.map((plugin, index) => (
             <div
               key={plugin.id}
