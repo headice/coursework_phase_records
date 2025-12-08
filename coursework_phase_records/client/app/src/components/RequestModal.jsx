@@ -68,7 +68,7 @@ export default function RequestModal({ open, onClose, preset }) {
               name="name"
               value={form.name}
               onChange={handleChange}
-              placeholder="Например: Антон, проект PHASE"
+              placeholder="Ваше имя или псевдоним"
               className="rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
             />
           </label>

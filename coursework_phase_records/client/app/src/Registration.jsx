@@ -78,7 +78,7 @@ const Registration = () => {
                       name="username"
                       value={formData.username}
                       onChange={handleChange}
-                      placeholder="PHASE / Anton"
+                      placeholder="Ваше имя или псевдоним"
                       className="w-full rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
                     />
                   </label>
