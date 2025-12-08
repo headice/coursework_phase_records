@@ -31,7 +31,7 @@ const Home = () => {
 
       <main className="flex-1">
         {/* HERO / MELON-STYLE */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-[#0b0b0d] to-black">
           {/* Фоновые градиенты */}
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[url('./img/zvukovoi-mikser-v-studii-bg2.jpg')] bg-cover bg-center opacity-40" />
@@ -41,43 +41,40 @@ const Home = () => {
           </div>
 
           {/* Контент */}
-          <div className="relative z-10 w-full max-w-6xl px-4 md:px-6 lg:px-8 py-28 flex flex-col lg:flex-row items-center lg:items-end gap-12">
-            {/* Левая колонка — текст */}
-            <div className="flex-1 max-w-xl">
+          <div className="relative z-10 w-full max-w-6xl px-4 md:px-8 lg:px-10 py-16 sm:py-20 lg:py-24 flex flex-col items-center md:items-start gap-10 text-center md:text-left">
+            {/* Текст */}
+            <div className="w-full max-w-3xl space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/40 bg-black/60 text-[11px] uppercase tracking-[0.25em] text-orange-300 mb-6">
                 <span className="w-2 h-2 rounded-full bg-orange-500" />
                 студия звукозаписи
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl font-extrabold leading-tight tracking-tight">
                 PHASE
                 <span className="text-orange-500"> RECORDS</span>
               </h1>
 
-              <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-lg">
+              <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl md:max-w-xl">
                 Место, где треки становятся релизами. Запись, сведение, мастеринг,
                 авторский продакшн и техническая поддержка на каждом этапе выхода
                 релиза.
               </p>
 
               {/* Быстрые фичи */}
-              <div className="mt-6 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-300">
+              <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-300">
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  
                   запись / сведение / мастеринг
                 </span>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  
                   авторский продакшн
                 </span>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  
                   релизы на всех площадках
                 </span>
               </div>
 
               {/* CTA-кнопки */}
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4">
                 <button
                   onClick={goToBooking}
                   className="px-10 py-3 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-sm md:text-base font-semibold uppercase tracking-wide transition"
@@ -94,7 +91,7 @@ const Home = () => {
               </div>
 
               {/* Немного «соцдоказательств» */}
-              <div className="mt-6 flex flex-wrap gap-6 text-xs text-gray-400">
+              <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-6 text-xs text-gray-400">
                 <div>
                   <p className="text-lg font-semibold text-white">100+</p>
                   <p>выпущенных релизов</p>
@@ -110,10 +107,7 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Правая колонка — абстрактный мокап */}
- </div>
-
-          {/* Индикатор скролла вниз */}
+          </div>
         </section>
 
         {/* О студии */}
@@ -147,18 +141,18 @@ const Home = () => {
             </div>
 
             {/* Правая часть */}
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <div
                 className="
-        relative w-full h-72 rounded-3xl overflow-hidden 
-        border border-orange-500/30 
+        relative w-full h-72 sm:h-80 rounded-3xl overflow-hidden
+        border border-orange-500/30
         shadow-[0_25px_80px_-40px_rgba(0,0,0,1)]
-        transition-all duration-300 
+        transition-all duration-300
         hover:scale-[1.015]
         hover:shadow-[0_25px_80px_-35px_rgba(249,115,22,0.25)]
       "
               >
-                <div className="absolute inset-0 bg-[url('./img/krupnym-planom-mikrofon-i-pop-fil-tr.jpg')] bg-cover bg-center" />
+                <div className="absolute inset-0 bg-main-info-pattern bg-cover bg-center" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-orange-900/40" />
 
                 <div className="absolute bottom-4 left-4 px-3 py-1 text-[11px] uppercase tracking-[0.2em] rounded-full bg-black/70 border border-orange-500/40 text-orange-200">

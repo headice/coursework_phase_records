@@ -30,7 +30,6 @@ function Tabs() {
 
   return (
     <>
-      {/* Навигация вкладок */}
       <div className="flex flex-wrap gap-3 mb-12">
         <TabButton id="hardware">Оборудование</TabButton>
         <TabButton id="pc">Компьютер</TabButton>
@@ -39,7 +38,6 @@ function Tabs() {
 
       <AnimatePresence mode="wait">
         <motion.div key={active} {...contentTransition}>
-          {/* Контент вкладок */}
           {active === "hardware" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
               <div

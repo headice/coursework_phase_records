@@ -64,7 +64,6 @@ export default function AudioPlayer() {
     if (audioRef.current) audioRef.current.volume = volume;
   }, [volume]);
 
-  // Авто-play при смене трека
   useEffect(() => {
     if (!audioRef.current || !current) return;
     audioRef.current.load();
@@ -200,7 +199,6 @@ export default function AudioPlayer() {
         </div>
 
         <div className="border border-zinc-800 rounded-3xl bg-black/80 p-6 sm:p-8 space-y-8 shadow-[0_24px_80px_-40px_rgba(0,0,0,1)]">
-          {/* Плеер */}
           <div className="border border-zinc-800 rounded-2xl bg-zinc-950/80 p-4 sm:p-5 space-y-4">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
@@ -241,7 +239,6 @@ export default function AudioPlayer() {
               </div>
             </div>
 
-            {/* Таймлайн */}
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[11px] text-zinc-400 mb-1">
                 <span>{formatTime(currentTime)}</span>
@@ -262,7 +259,6 @@ export default function AudioPlayer() {
               />
             </div>
 
-            {/* Громкость */}
             <div className="flex items-center space-x-3">
               <Volume2 size={18} className="text-zinc-400" />
 
@@ -286,7 +282,6 @@ export default function AudioPlayer() {
             </div>
           </div>
 
-          {/* Списки треков */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <TrackBlock list={tracksBefore} label="до сведения" />
             <TrackBlock list={tracksAfter} label="после сведения" />
