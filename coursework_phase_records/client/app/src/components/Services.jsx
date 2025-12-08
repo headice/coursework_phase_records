@@ -166,7 +166,6 @@ export default function ServicesSection() {
       </div>
 
       <div className="relative w-full">
-        {/* Стрелки */}
         <button
           onClick={() => scroll("left")}
           className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/80 hover:bg-black text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 border border-orange-500/60 items-center justify-center"
@@ -203,7 +202,6 @@ export default function ServicesSection() {
           </svg>
         </button>
 
-        {/* Лента карточек */}
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-2 pb-4"

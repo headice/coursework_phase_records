@@ -52,7 +52,6 @@ export default function Header() {
       `}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 py-3">
-        {/* Лого + подпись */}
         <div
           className="flex items-center gap-3 cursor-pointer"
           onClick={() => navigate("/")}
@@ -70,7 +69,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Навигация — десктоп */}
         <nav className="hidden lg:flex items-center gap-7 text-sm text-gray-100 font-medium">
           {navItems.map((item) => (
             <button
@@ -84,7 +82,6 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Иконки */}
         <div className="hidden lg:flex items-center space-x-4 text-gray-100">
           <button
             className="hover:text-orange-400 transition"
@@ -125,7 +122,6 @@ export default function Header() {
           )}
         </div>
 
-        {/* Бургер */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="lg:hidden text-gray-100"
@@ -134,7 +130,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Мобильное меню */}
       {mobileOpen && (
         <div className="lg:hidden bg-black/95 text-gray-100 px-6 pb-4 pt-2 space-y-3 border-t border-orange-500/30">
           {[

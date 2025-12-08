@@ -77,9 +77,7 @@ export default function Booking() {
       <Header />
 
       <main className="flex-1">
-        {/* HERO */}
         <section className="relative w-full overflow-hidden border-b border-zinc-900/40 backdrop-blur-[1px]">
-          {/* фон как в Contacts */}
           <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black" />
           <div className="absolute -right-40 -top-40 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl" />
           <div className="absolute -left-40 bottom-0 w-96 h-96 rounded-full bg-orange-500/5 blur-3xl" />

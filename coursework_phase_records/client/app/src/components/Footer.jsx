@@ -7,7 +7,6 @@ export default function Footer() {
   const handleContact = () => navigate("/contacts");
   const handleBooking = () => navigate("/booking");
 
-  // Услуги
   const servicesLinks = [
     { label: "Все услуги", to: "/shop" },
     { label: "Запись", to: "/services/recording" },
@@ -18,7 +17,6 @@ export default function Footer() {
     { label: "Выгрузка релиза", to: "/services/fullsong" },
   ];
 
-  // 🔥 Колонка "О нас" — те же ссылки, что в хедере (без корзины и профиля)
   const aboutLinks = [
     { label: "Главная", to: "/" },
     { label: "О нас", to: "/about" },
@@ -43,9 +41,7 @@ export default function Footer() {
   return (
     <footer className="w-full border-t border-white/10 bg-neutral-950 text-white py-10 px-4 md:px-6 mt-auto">
       <div className="max-w-7xl mx-auto space-y-8">
-        {/* Верхний блок */}
         <div className="flex flex-col gap-8 md:grid md:grid-cols-[1.05fr_1fr] md:gap-10 lg:flex lg:items-start lg:justify-between">
-          {/* Левая колонка */}
           <div className="space-y-4 max-w-xl md:max-w-none">
             <p className="text-xs uppercase tracking-[0.25em] text-orange-400">
               phase records
@@ -66,9 +62,7 @@ export default function Footer() {
             </button>
           </div>
 
-          {/* Правые колонки */}
           <div className="grid grid-cols-2 gap-6 md:gap-8 lg:grid-cols-3 text-sm">
-            {/* Услуги */}
             <div>
               <h3 className="text-[11px] uppercase tracking-[0.28em] text-neutral-500 mb-3">
                 Услуги
@@ -87,7 +81,6 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* О нас — те же ссылки, что в хедере */}
             <div>
               <h3 className="text-[11px] uppercase tracking-[0.28em] text-neutral-500 mb-3">
                 Навигация
@@ -106,7 +99,6 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* More info */}
             <div>
               <h3 className="text-[11px] uppercase tracking-[0.28em] text-neutral-500 mb-3">
                 More info
@@ -127,7 +119,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Нижний блок */}
         <div className="border-t border-white/10 pt-5 flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <span className="text-[11px] uppercase tracking-[0.26em] text-neutral-500">
