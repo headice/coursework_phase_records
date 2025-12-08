@@ -33,17 +33,94 @@ function AppRoutes() {
         }
       >
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-          <Route path="/contacts" element={<PageTransition><Contacts /></PageTransition>} />
-          <Route path="/shop" element={<PageTransition><Shop /></PageTransition>} />
-          <Route path="/register" element={<PageTransition><Registration /></PageTransition>} />
-          <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
-          <Route path="/profile" element={<PageTransition><Profile /></PageTransition>} />
-          <Route path="/cart" element={<PageTransition><Cart /></PageTransition>} />
-          <Route path="/booking" element={<PageTransition><Booking /></PageTransition>} />
-          <Route path="/services/:serviceId" element={<PageTransition><ServiceDetails /></PageTransition>} />
-          <Route path="/plugins/:pluginId" element={<PageTransition><PluginDetails /></PageTransition>} />
+          <Route
+            path="/"
+            element={
+              <PageTransition>
+                <Home />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <PageTransition>
+                <About />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PageTransition>
+                <Contacts />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/shop"
+            element={
+              <PageTransition>
+                <Shop />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PageTransition>
+                <Registration />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PageTransition>
+                <Login />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PageTransition>
+                <Profile />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <PageTransition>
+                <Cart />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/booking"
+            element={
+              <PageTransition>
+                <Booking />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/services/:serviceId"
+            element={
+              <PageTransition>
+                <ServiceDetails />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/plugins/:pluginId"
+            element={
+              <PageTransition>
+                <PluginDetails />
+              </PageTransition>
+            }
+          />
         </Routes>
       </Suspense>
     </AnimatePresence>

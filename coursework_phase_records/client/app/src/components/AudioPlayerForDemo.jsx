@@ -64,7 +64,6 @@ export default function AudioPlayer() {
     if (audioRef.current) audioRef.current.volume = volume;
   }, [volume]);
 
-  // Авто-play при смене трека
   useEffect(() => {
     if (!audioRef.current || !current) return;
     audioRef.current.load();
@@ -107,7 +106,7 @@ export default function AudioPlayer() {
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.min(
       audioRef.current.currentTime + 10,
-      duration
+      duration,
     );
   };
 
@@ -115,7 +114,7 @@ export default function AudioPlayer() {
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.max(
       audioRef.current.currentTime - 10,
-      0
+      0,
     );
   };
 
@@ -193,14 +192,13 @@ export default function AudioPlayer() {
               Как меняется звук после студийного сведения
             </h1>
             <p className="mt-3 text-sm sm:text-base text-gray-300 max-w-xl">
-              Сравните демо и финальные версии проектов. Нажмите на любой трек
-              в списке — плеер автоматически подгрузит нужный фрагмент.
+              Сравните демо и финальные версии проектов. Нажмите на любой трек в
+              списке — плеер автоматически подгрузит нужный фрагмент.
             </p>
           </div>
         </div>
 
         <div className="border border-zinc-800 rounded-3xl bg-black/80 p-6 sm:p-8 space-y-8 shadow-[0_24px_80px_-40px_rgba(0,0,0,1)]">
-          {/* Плеер */}
           <div className="border border-zinc-800 rounded-2xl bg-zinc-950/80 p-4 sm:p-5 space-y-4">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
@@ -240,8 +238,6 @@ export default function AudioPlayer() {
                 </button>
               </div>
             </div>
-
-            {/* Таймлайн */}
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[11px] text-zinc-400 mb-1">
                 <span>{formatTime(currentTime)}</span>
@@ -261,8 +257,6 @@ export default function AudioPlayer() {
                    [&::-webkit-slider-thumb]:bg-orange-500"
               />
             </div>
-
-            {/* Громкость */}
             <div className="flex items-center space-x-3">
               <Volume2 size={18} className="text-zinc-400" />
 
@@ -285,8 +279,6 @@ export default function AudioPlayer() {
               </span>
             </div>
           </div>
-
-          {/* Списки треков */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <TrackBlock list={tracksBefore} label="до сведения" />
             <TrackBlock list={tracksAfter} label="после сведения" />

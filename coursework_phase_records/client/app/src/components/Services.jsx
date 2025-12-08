@@ -87,7 +87,7 @@ export default function ServicesSection() {
       event?.stopPropagation();
       navigate(`/services/${serviceId}`);
     },
-    [navigate]
+    [navigate],
   );
 
   const handleBookingClick = useCallback(
@@ -96,7 +96,7 @@ export default function ServicesSection() {
       setAuthPrompt("");
       if (
         !requireAuth(() =>
-          setAuthPrompt("Войдите, чтобы бронировать или покупать услуги.")
+          setAuthPrompt("Войдите, чтобы бронировать или покупать услуги."),
         )
       ) {
         navigate("/login");
@@ -115,7 +115,7 @@ export default function ServicesSection() {
         navigate("/cart");
       }
     },
-    [addToCart, navigate, requireAuth]
+    [addToCart, navigate, requireAuth],
   );
 
   const dots = useMemo(
@@ -127,7 +127,7 @@ export default function ServicesSection() {
           className="w-2 h-2 bg-orange-500/50 rounded-full"
         />
       )),
-    [navigateToService, services]
+    [navigateToService, services],
   );
 
   return (
@@ -166,7 +166,6 @@ export default function ServicesSection() {
       </div>
 
       <div className="relative w-full">
-        {/* Стрелки */}
         <button
           onClick={() => scroll("left")}
           className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/80 hover:bg-black text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 border border-orange-500/60 items-center justify-center"
@@ -202,8 +201,6 @@ export default function ServicesSection() {
             <path d="M9 18l6-6-6-6" />
           </svg>
         </button>
-
-        {/* Лента карточек */}
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-2 pb-4"
@@ -221,9 +218,7 @@ export default function ServicesSection() {
         </div>
 
         <div className="flex justify-center mt-6 md:hidden">
-          <div className="flex space-x-2">
-            {dots}
-          </div>
+          <div className="flex space-x-2">{dots}</div>
         </div>
       </div>
     </section>

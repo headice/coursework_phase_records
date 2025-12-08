@@ -30,7 +30,6 @@ function Tabs() {
 
   return (
     <>
-      {/* Навигация вкладок */}
       <div className="flex flex-wrap gap-3 mb-12">
         <TabButton id="hardware">Оборудование</TabButton>
         <TabButton id="pc">Компьютер</TabButton>
@@ -39,7 +38,6 @@ function Tabs() {
 
       <AnimatePresence mode="wait">
         <motion.div key={active} {...contentTransition}>
-          {/* Контент вкладок */}
           {active === "hardware" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
               <div
@@ -59,16 +57,22 @@ function Tabs() {
 
                 <ul className="space-y-3 text-sm sm:text-lg leading-relaxed text-gray-200">
                   <li className="list-disc ml-6">
-                    <strong>Конденсаторные и ламповые микрофоны</strong> для вокала и
-                    инструментов
+                    <strong>Конденсаторные и ламповые микрофоны</strong> для
+                    вокала и инструментов
                   </li>
-                  <li className="list-disc ml-6">Студийные мониторы ближнего поля</li>
+                  <li className="list-disc ml-6">
+                    Студийные мониторы ближнего поля
+                  </li>
                   <li className="list-disc ml-6">
                     <strong>Профессиональные аудиоинтерфейсы</strong> с низкой
                     задержкой
                   </li>
-                  <li className="list-disc ml-6">MIDI-клавиатуры и контроллеры</li>
-                  <li className="list-disc ml-6">Электронная перкуссия и пад-контроллеры</li>
+                  <li className="list-disc ml-6">
+                    MIDI-клавиатуры и контроллеры
+                  </li>
+                  <li className="list-disc ml-6">
+                    Электронная перкуссия и пад-контроллеры
+                  </li>
                   <li className="list-disc ml-6">
                     DJ-оборудование и контроллеры для выступлений
                   </li>
@@ -90,7 +94,9 @@ function Tabs() {
                 <p className="text-xs uppercase tracking-[0.25em] text-orange-400 mb-3">
                   рабочая станция
                 </p>
-                <h2 className="text-3xl font-bold text-white mb-6">Компьютер</h2>
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  Компьютер
+                </h2>
 
                 <ul className="space-y-3 text-sm sm:text-lg leading-relaxed text-gray-200">
                   <li className="list-disc ml-6">
@@ -100,11 +106,16 @@ function Tabs() {
                   <li className="list-disc ml-6">
                     <strong>SSD 2 ТБ</strong> + дополнительные HDD по 2 ТБ
                   </li>
-                  <li className="list-disc ml-6">Хранение проектов до 6 месяцев</li>
-                  <li className="list-disc ml-6">Три монитора до 2560×1080</li>
-                  <li className="list-disc ml-6">Windows 11 + OBS Studio для стримов</li>
                   <li className="list-disc ml-6">
-                    Full HD web-камера и высокоскоростной интернет xPON до 1 Гбит/с
+                    Хранение проектов до 6 месяцев
+                  </li>
+                  <li className="list-disc ml-6">Три монитора до 2560×1080</li>
+                  <li className="list-disc ml-6">
+                    Windows 11 + OBS Studio для стримов
+                  </li>
+                  <li className="list-disc ml-6">
+                    Full HD web-камера и высокоскоростной интернет xPON до 1
+                    Гбит/с
                   </li>
                 </ul>
               </div>
@@ -139,7 +150,9 @@ function Tabs() {
                   <li className="list-disc ml-6">
                     <strong>FabFilter 4 Total Bundle</strong>
                   </li>
-                  <li className="list-disc ml-6">Avenger, ANA, Diva, Massive, Serum 2, Spire</li>
+                  <li className="list-disc ml-6">
+                    Avenger, ANA, Diva, Massive, Serum 2, Spire
+                  </li>
                   <li className="list-disc ml-6">
                     <strong>Nexus 2 / Nexus 3</strong>
                   </li>

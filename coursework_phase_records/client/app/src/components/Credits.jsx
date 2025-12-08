@@ -144,9 +144,7 @@ function CardVariantB({ release }) {
       </div>
 
       <div className="p-3 bg-black">
-        <p className="text-sm font-medium text-orange-400">
-          {release.title}
-        </p>
+        <p className="text-sm font-medium text-orange-400">{release.title}</p>
         <p className="text-xs text-gray-300">{release.artist}</p>
       </div>
     </a>
@@ -160,9 +158,9 @@ export default function ReleasesSection({
   return (
     <section className="w-full bg-black text-white py-20">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
-         <p className="text-xs uppercase tracking-[0.25em] text-orange-400 mb-3">
-              примеры работ
-            </p>
+        <p className="text-xs uppercase tracking-[0.25em] text-orange-400 mb-3">
+          примеры работ
+        </p>
         <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-orange-500">
           Релизы студии
         </h2>
@@ -177,7 +175,7 @@ export default function ReleasesSection({
               <CardVariantB key={release.id} release={release} />
             ) : (
               <CardVariantC key={release.id} release={release} />
-            )
+            ),
           )}
         </div>
       </div>

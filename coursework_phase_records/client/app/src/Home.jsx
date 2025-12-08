@@ -30,19 +30,14 @@ const Home = () => {
       <Header />
 
       <main className="flex-1">
-        {/* HERO / MELON-STYLE */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-[#0b0b0d] to-black">
-          {/* Фоновые градиенты */}
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[url('./img/zvukovoi-mikser-v-studii-bg2.jpg')] bg-cover bg-center opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-br from-black via-black/90 to-orange-900/40" />
             <div className="absolute -left-40 top-1/4 w-80 h-80 rounded-full bg-orange-500/10 blur-3xl" />
             <div className="absolute right-[-120px] bottom-0 w-96 h-96 rounded-full bg-orange-500/15 blur-3xl" />
           </div>
-
-          {/* Контент */}
           <div className="relative z-10 w-full max-w-6xl px-4 md:px-8 lg:px-10 py-16 sm:py-20 lg:py-24 flex flex-col items-center md:items-start gap-10 text-center md:text-left">
-            {/* Текст */}
             <div className="w-full max-w-3xl space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/40 bg-black/60 text-[11px] uppercase tracking-[0.25em] text-orange-300 mb-6">
                 <span className="w-2 h-2 rounded-full bg-orange-500" />
@@ -55,12 +50,10 @@ const Home = () => {
               </h1>
 
               <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl md:max-w-xl">
-                Место, где треки становятся релизами. Запись, сведение, мастеринг,
-                авторский продакшн и техническая поддержка на каждом этапе выхода
-                релиза.
+                Место, где треки становятся релизами. Запись, сведение,
+                мастеринг, авторский продакшн и техническая поддержка на каждом
+                этапе выхода релиза.
               </p>
-
-              {/* Быстрые фичи */}
               <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-300">
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
                   запись / сведение / мастеринг
@@ -72,8 +65,6 @@ const Home = () => {
                   релизы на всех площадках
                 </span>
               </div>
-
-              {/* CTA-кнопки */}
               <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4">
                 <button
                   onClick={goToBooking}
@@ -89,8 +80,6 @@ const Home = () => {
                   Смотреть услуги
                 </button>
               </div>
-
-              {/* Немного «соцдоказательств» */}
               <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-6 text-xs text-gray-400">
                 <div>
                   <p className="text-lg font-semibold text-white">100+</p>
@@ -106,22 +95,16 @@ const Home = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </section>
-
-        {/* О студии */}
         <section
           id="studio"
           className="py-24 bg-gradient-to-b from-black via-zinc-950 to-black relative"
         >
-          {/* Тонкая разделительная линия сверху */}
           <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent" />
 
           <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-14">
-            {/* Левая часть */}
             <div className="flex-1 relative">
-              {/* Вертикальная акцентная линия слева */}
               <div className="hidden md:block absolute -left-5 top-0 bottom-0 w-px bg-zinc-700/40" />
 
               <p className="text-xs uppercase tracking-[0.25em] text-orange-400 mb-3">
@@ -134,13 +117,11 @@ const Home = () => {
               </h2>
 
               <p className="text-lg text-gray-300 leading-relaxed">
-                Phase Records — это пространство для артистов, саунд-продюсеров и
-                брендов. Мы берём на себя всё: от записи демо до полной
+                Phase Records — это пространство для артистов, саунд-продюсеров
+                и брендов. Мы берём на себя всё: от записи демо до полной
                 продакшн-поддержки релиза и дистрибуции.
               </p>
             </div>
-
-            {/* Правая часть */}
             <div className="flex-1 w-full">
               <div
                 className="
@@ -162,8 +143,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
-        {/* CTA, далее секции */}
         <section className="w-full flex justify-center py-24 px-4 bg-gradient-to-b from-black via-black to-zinc-950">
           <div
             className="

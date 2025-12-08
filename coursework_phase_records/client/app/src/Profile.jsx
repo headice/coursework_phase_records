@@ -31,11 +31,13 @@ const Profile = () => {
         <Header />
         <main className="flex-1 flex items-center justify-center px-4">
           <div className="max-w-md text-center space-y-4 bg-zinc-950/70 border border-orange-500/25 rounded-2xl p-6">
-            <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400">профиль</p>
+            <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400">
+              профиль
+            </p>
             <h1 className="text-2xl font-bold">Нужен вход</h1>
             <p className="text-sm text-gray-300">
-              Чтобы увидеть свои бронирования и корзину, войдите через тестовый профиль
-              или зарегистрируйтесь.
+              Чтобы увидеть свои бронирования и корзину, войдите через тестовый
+              профиль или зарегистрируйтесь.
             </p>
             <div className="flex gap-3 justify-center">
               <button
@@ -70,10 +72,15 @@ const Profile = () => {
           <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-10">
             <div className="flex flex-col gap-4 sm:items-center sm:flex-row sm:justify-between">
               <div className="space-y-2">
-                <p className="text-[11px] uppercase tracking-[0.26em] text-orange-400">профиль</p>
-                <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">Добро пожаловать, {username}</h1>
+                <p className="text-[11px] uppercase tracking-[0.26em] text-orange-400">
+                  профиль
+                </p>
+                <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
+                  Добро пожаловать, {username}
+                </h1>
                 <p className="text-sm sm:text-base text-gray-300 max-w-2xl">
-                  Здесь собраны ваши заявки на бронирование и содержимое корзины. Можно быстро перейти к новым заказам.
+                  Здесь собраны ваши заявки на бронирование и содержимое
+                  корзины. Можно быстро перейти к новым заказам.
                 </p>
               </div>
 
@@ -96,7 +103,9 @@ const Profile = () => {
             <div className="grid gap-6 lg:grid-cols-2">
               <div className="bg-zinc-950/70 border border-orange-500/25 rounded-2xl p-6 space-y-4 shadow-[0_24px_90px_-50px_rgba(0,0,0,1)]">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-orange-300">бронирования</p>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-orange-300">
+                    бронирования
+                  </p>
                   <button
                     onClick={() => navigate("/booking")}
                     className="text-xs uppercase tracking-wide text-orange-300 hover:text-orange-200"
@@ -106,7 +115,9 @@ const Profile = () => {
                 </div>
 
                 {bookings.length === 0 ? (
-                  <p className="text-sm text-gray-400">Здесь появятся заявки после отправки формы бронирования.</p>
+                  <p className="text-sm text-gray-400">
+                    Здесь появятся заявки после отправки формы бронирования.
+                  </p>
                 ) : (
                   <div className="space-y-3">
                     {bookings.map((booking) => (
@@ -115,13 +126,21 @@ const Profile = () => {
                         className="p-4 rounded-xl bg-black/60 border border-orange-500/20 flex flex-col gap-1 text-sm text-gray-200"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-orange-300 font-semibold">{booking.serviceId}</span>
-                          <span className="text-gray-400 text-xs">{new Date(booking.createdAt).toLocaleString()}</span>
+                          <span className="text-orange-300 font-semibold">
+                            {booking.serviceId}
+                          </span>
+                          <span className="text-gray-400 text-xs">
+                            {new Date(booking.createdAt).toLocaleString()}
+                          </span>
                         </div>
                         <p>Дата: {booking.date || "не выбрана"}</p>
                         <p>Время: {booking.time || "не выбрано"}</p>
                         <p>Контакт: {booking.contact}</p>
-                        {booking.comment && <p className="text-gray-400">Комментарий: {booking.comment}</p>}
+                        {booking.comment && (
+                          <p className="text-gray-400">
+                            Комментарий: {booking.comment}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -130,7 +149,9 @@ const Profile = () => {
 
               <div className="bg-zinc-950/70 border border-orange-500/25 rounded-2xl p-6 space-y-4 shadow-[0_24px_90px_-50px_rgba(0,0,0,1)]">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-orange-300">корзина</p>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-orange-300">
+                    корзина
+                  </p>
                   <button
                     onClick={() => navigate("/shop")}
                     className="text-xs uppercase tracking-wide text-orange-300 hover:text-orange-200"
@@ -140,7 +161,9 @@ const Profile = () => {
                 </div>
 
                 {cartItems.length === 0 ? (
-                  <p className="text-sm text-gray-400">Корзина пуста. Добавьте плагины из магазина.</p>
+                  <p className="text-sm text-gray-400">
+                    Корзина пуста. Добавьте плагины из магазина.
+                  </p>
                 ) : (
                   <div className="space-y-3">
                     {cartItems.map((item) => (
@@ -149,20 +172,28 @@ const Profile = () => {
                         className="p-4 rounded-xl bg-black/60 border border-orange-500/20 flex items-center justify-between gap-3 text-sm text-gray-200"
                       >
                         <div className="space-y-1">
-                          <p className="text-xs uppercase tracking-[0.2em] text-orange-300">{item.type}</p>
+                          <p className="text-xs uppercase tracking-[0.2em] text-orange-300">
+                            {item.type}
+                          </p>
                           <p className="text-base font-semibold">{item.name}</p>
                           <p className="text-gray-400 text-xs">{item.tag}</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm text-gray-400">Количество: {item.quantity}</p>
-                          <p className="text-lg font-semibold text-orange-300">{item.price}</p>
+                          <p className="text-sm text-gray-400">
+                            Количество: {item.quantity}
+                          </p>
+                          <p className="text-lg font-semibold text-orange-300">
+                            {item.price}
+                          </p>
                         </div>
                       </div>
                     ))}
 
                     <div className="flex items-center justify-between pt-2 border-t border-orange-500/10">
                       <span className="text-sm text-gray-400">Итого</span>
-                      <span className="text-xl font-bold text-orange-400">{total.toLocaleString("ru-RU")} ₽</span>
+                      <span className="text-xl font-bold text-orange-400">
+                        {total.toLocaleString("ru-RU")} ₽
+                      </span>
                     </div>
                     <div className="flex gap-3">
                       <button

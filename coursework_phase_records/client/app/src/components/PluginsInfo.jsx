@@ -12,7 +12,9 @@ export default function StudioSaleSection() {
 
   const handleAddToCart = (plugin) => {
     setAuthMessage("");
-    if (!requireAuth(() => setAuthMessage("Авторизуйтесь, чтобы купить плагин."))) {
+    if (
+      !requireAuth(() => setAuthMessage("Авторизуйтесь, чтобы купить плагин."))
+    ) {
       navigate("/login");
       return;
     }
@@ -38,7 +40,9 @@ export default function StudioSaleSection() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         <div className="grid gap-12 md:grid-cols-2 items-center mb-16 md:mb-20">
           <div className="space-y-6 md:space-y-7">
-            <p className="text-xs uppercase tracking-[0.25em] text-orange-400">phase plugins</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-orange-400">
+              phase plugins
+            </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight uppercase">
               МЫ ТЕПЕРЬ РАЗРАБАТЫВАЕМ
               <br />
@@ -46,8 +50,8 @@ export default function StudioSaleSection() {
             </h1>
 
             <p className="text-lg md:text-xl max-w-xl text-gray-200">
-              Создаём плагины для сведения, синтезаторы и эффекты, которые сами используем в работе на студии. Ранняя стоимость
-              ниже релизной.
+              Создаём плагины для сведения, синтезаторы и эффекты, которые сами
+              используем в работе на студии. Ранняя стоимость ниже релизной.
             </p>
 
             <p className="text-sm md:text-base font-semibold tracking-wide uppercase text-orange-400">
@@ -96,16 +100,26 @@ export default function StudioSaleSection() {
                   }}
                 />
                 {plugin.discount && (
-                  <p className="text-xs font-bold tracking-wide text-orange-400 uppercase">скидка {plugin.discount.replace("-", "")}</p>
+                  <p className="text-xs font-bold tracking-wide text-orange-400 uppercase">
+                    скидка {plugin.discount.replace("-", "")}
+                  </p>
                 )}
-                <h3 className="mt-1 text-sm font-extrabold tracking-wide uppercase">{plugin.name}</h3>
-                <p className="mt-2 text-xs text-gray-300 leading-relaxed">{plugin.description}</p>
+                <h3 className="mt-1 text-sm font-extrabold tracking-wide uppercase">
+                  {plugin.name}
+                </h3>
+                <p className="mt-2 text-xs text-gray-300 leading-relaxed">
+                  {plugin.description}
+                </p>
               </button>
 
               <div className="mt-auto px-5 pb-5 pt-3 space-y-3 bg-black/70 border-t border-orange-500/20">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-lg font-semibold text-orange-300">{plugin.price}</span>
-                  <span className="text-gray-500 line-through">{plugin.oldPrice}</span>
+                  <span className="text-lg font-semibold text-orange-300">
+                    {plugin.price}
+                  </span>
+                  <span className="text-gray-500 line-through">
+                    {plugin.oldPrice}
+                  </span>
                 </div>
                 <div className="flex gap-2">
                   <button

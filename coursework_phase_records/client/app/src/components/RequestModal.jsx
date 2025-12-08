@@ -54,10 +54,13 @@ export default function RequestModal({ open, onClose, preset }) {
           ✕
         </button>
 
-        <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400 mb-2">заявка</p>
+        <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400 mb-2">
+          заявка
+        </p>
         <h3 className="text-2xl font-bold mb-2">Оставить запрос</h3>
         <p className="text-sm text-gray-300 mb-4">
-          Заполните контакты и выбранную услугу — мы вернёмся с уточнениями и предложим свободное время.
+          Заполните контакты и выбранную услугу — мы вернёмся с уточнениями и
+          предложим свободное время.
         </p>
 
         <form className="space-y-4" onSubmit={handleSubmit}>

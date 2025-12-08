@@ -17,7 +17,13 @@ export default function PluginDetails() {
   const handleAddToCart = () => {
     if (!plugin) return;
     setAuthMessage("");
-    if (!requireAuth(() => setAuthMessage("Войдите или используйте тестовый профиль, чтобы купить."))) {
+    if (
+      !requireAuth(() =>
+        setAuthMessage(
+          "Войдите или используйте тестовый профиль, чтобы купить.",
+        ),
+      )
+    ) {
       navigate("/login");
       return;
     }
@@ -63,12 +69,18 @@ export default function PluginDetails() {
           <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="space-y-3 max-w-3xl">
-                <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400">плагин</p>
-                <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">{plugin.name}</h1>
+                <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400">
+                  плагин
+                </p>
+                <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
+                  {plugin.name}
+                </h1>
                 <p className="text-sm sm:text-base text-gray-200 max-w-2xl leading-relaxed">
                   {plugin.description}
                 </p>
-                <p className="text-xs uppercase tracking-[0.2em] text-orange-300">{plugin.tag}</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-orange-300">
+                  {plugin.tag}
+                </p>
                 {authMessage && (
                   <p className="text-sm text-orange-200 bg-orange-500/10 border border-orange-500/30 rounded-2xl px-4 py-3 max-w-lg">
                     {authMessage}
@@ -79,11 +91,15 @@ export default function PluginDetails() {
               <div className="bg-zinc-900/70 border border-orange-500/30 rounded-2xl p-5 space-y-2 w-full lg:max-w-sm shadow-[0_24px_80px_-40px_rgba(249,115,22,0.35)]">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-400">Цена</span>
-                  <span className="font-semibold text-orange-300">{plugin.price}</span>
+                  <span className="font-semibold text-orange-300">
+                    {plugin.price}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-400">Старая цена</span>
-                  <span className="text-gray-500 line-through">{plugin.oldPrice}</span>
+                  <span className="text-gray-500 line-through">
+                    {plugin.oldPrice}
+                  </span>
                 </div>
                 <button
                   onClick={handleAddToCart}
@@ -102,11 +118,17 @@ export default function PluginDetails() {
 
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="rounded-3xl overflow-hidden border border-orange-500/30 shadow-[0_24px_80px_-40px_rgba(0,0,0,1)] bg-black/50 flex items-center justify-center">
-                <img src={plugin.image} alt={plugin.name} className="w-full h-full object-cover" />
+                <img
+                  src={plugin.image}
+                  alt={plugin.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <div className="bg-zinc-950/60 border border-orange-500/20 rounded-3xl p-6 sm:p-8 space-y-4">
-                <p className="text-[11px] uppercase tracking-[0.22em] text-orange-400">возможности</p>
+                <p className="text-[11px] uppercase tracking-[0.22em] text-orange-400">
+                  возможности
+                </p>
                 <ul className="space-y-3 text-sm sm:text-base text-gray-200 leading-relaxed">
                   {plugin.features.map((item) => (
                     <li key={item} className="flex items-start gap-3">
@@ -117,7 +139,10 @@ export default function PluginDetails() {
                 </ul>
 
                 <div className="pt-2 text-xs text-gray-400">
-                  <p>После покупки получите письмо с ключом активации и ссылкой на установку.</p>
+                  <p>
+                    После покупки получите письмо с ключом активации и ссылкой
+                    на установку.
+                  </p>
                 </div>
               </div>
             </div>

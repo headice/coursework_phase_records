@@ -1,4 +1,10 @@
-import { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 const TEST_PROFILE = {
   email: "demo@phase.studio",
@@ -41,7 +47,8 @@ export function AuthProvider({ children }) {
   }, [user]);
 
   const register = useCallback((payload) => {
-    const username = payload.username || payload.email?.split("@")[0] || "Гость";
+    const username =
+      payload.username || payload.email?.split("@")[0] || "Гость";
     const registeredUser = {
       username,
       email: payload.email,
@@ -102,7 +109,7 @@ export function AuthProvider({ children }) {
       if (onFail) onFail();
       return false;
     },
-    [token]
+    [token],
   );
 
   const value = useMemo(
@@ -116,7 +123,7 @@ export function AuthProvider({ children }) {
       requireAuth,
       testProfile: TEST_PROFILE,
     }),
-    [login, loginTestProfile, logout, register, requireAuth, token, user]
+    [login, loginTestProfile, logout, register, requireAuth, token, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

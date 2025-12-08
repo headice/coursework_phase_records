@@ -25,14 +25,14 @@ export function ShopProvider({ children }) {
   const addToCart = useCallback((item) => {
     setCartItems((prev) => {
       const existing = prev.find(
-        (cartItem) => cartItem.id === item.id && cartItem.type === item.type
+        (cartItem) => cartItem.id === item.id && cartItem.type === item.type,
       );
 
       if (existing) {
         return prev.map((cartItem) =>
           cartItem.id === item.id && cartItem.type === item.type
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
+            : cartItem,
         );
       }
 
@@ -92,7 +92,7 @@ export function ShopProvider({ children }) {
       bookService,
       requests,
       addRequest,
-    ]
+    ],
   );
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

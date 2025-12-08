@@ -30,7 +30,7 @@ export default function Booking() {
 
   const recordingService = useMemo(
     () => services.find((service) => service.id === "recording"),
-    [services]
+    [services],
   );
   const selectedService = recordingService;
   const requestedService = query.get("service");
@@ -47,8 +47,8 @@ export default function Booking() {
     if (
       !requireAuth(() =>
         setAuthMessage(
-          "Авторизуйтесь или войдите тестовым профилем, чтобы забронировать сессию."
-        )
+          "Авторизуйтесь или войдите тестовым профилем, чтобы забронировать сессию.",
+        ),
       )
     ) {
       navigate("/login");
@@ -77,9 +77,7 @@ export default function Booking() {
       <Header />
 
       <main className="flex-1">
-        {/* HERO */}
         <section className="relative w-full overflow-hidden border-b border-zinc-900/40 backdrop-blur-[1px]">
-          {/* фон как в Contacts */}
           <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black" />
           <div className="absolute -right-40 -top-40 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl" />
           <div className="absolute -left-40 bottom-0 w-96 h-96 rounded-full bg-orange-500/5 blur-3xl" />
@@ -88,8 +86,7 @@ export default function Booking() {
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-4 max-w-2xl">
                 <p className="text-[11px] uppercase tracking-[0.3em] text-orange-400">
-                  Бронирование 
-                  
+                  Бронирование
                 </p>
 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
@@ -267,9 +264,7 @@ export default function Booking() {
 
                 <div className="pt-2 space-y-2 text-xs text-gray-400">
                   <p>Доступна онлайн-запись и выездные сессии.</p>
-                  <p>
-                    Если время нужно срочно — напишите нам в Telegram.
-                  </p>
+                  <p>Если время нужно срочно — напишите нам в Telegram.</p>
                 </div>
               </div>
             </div>
@@ -294,9 +289,7 @@ export default function Booking() {
             <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400 mb-2">
               заявка создана
             </p>
-            <h3 className="text-2xl font-bold mb-2">
-              Мы приняли вашу бронь
-            </h3>
+            <h3 className="text-2xl font-bold mb-2">Мы приняли вашу бронь</h3>
             <p className="text-sm text-gray-300 mb-4">
               Проверьте детали и подтвердите время в ответном сообщении — мы
               свяжемся с вами в ближайшее время.

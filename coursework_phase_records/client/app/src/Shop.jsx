@@ -18,7 +18,7 @@ const Shop = () => {
     setAuthNotice("");
     if (
       !requireAuth(() =>
-        setAuthNotice("Войдите, чтобы оформить покупку или бронь.")
+        setAuthNotice("Войдите, чтобы оформить покупку или бронь."),
       )
     ) {
       navigate("/login");
@@ -47,7 +47,7 @@ const Shop = () => {
     setAuthNotice("");
     if (
       !requireAuth(() =>
-        setAuthNotice("Авторизуйтесь, чтобы добавить плагины в корзину.")
+        setAuthNotice("Авторизуйтесь, чтобы добавить плагины в корзину."),
       )
     ) {
       navigate("/login");
@@ -68,9 +68,7 @@ const Shop = () => {
       <Header />
 
       <main className="flex-1">
-        {/* HERO МАГАЗИНА */}
         <section className="relative w-full overflow-hidden border-b border-zinc-900/40 backdrop-blur-[1px]">
-          {/* фон как в Contacts */}
           <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black" />
           <div className="absolute -right-40 -top-40 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl" />
           <div className="absolute -left-40 bottom-0 w-96 h-96 rounded-full bg-orange-500/5 blur-3xl" />
@@ -82,7 +80,7 @@ const Shop = () => {
               </p>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-                УСЛУГИ  И ПЛАГИНЫ,
+                УСЛУГИ И ПЛАГИНЫ,
                 <span className="block text-orange-500">
                   КОТОРЫЕ МЫ РАЗРАБАТЫВАЕМ
                 </span>
@@ -114,13 +112,9 @@ const Shop = () => {
                 </button>
               </div>
             </div>
-
-            {/* справа можно оставить пусто, как в Contacts, или позже добавить CTA */}
             <div className="flex-1 w-full max-w-md lg:max-w-sm flex justify-center lg:justify-end" />
           </div>
         </section>
-
-        {/* УСЛУГИ */}
         <section className="py-16 bg-neutral-950">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
@@ -132,8 +126,8 @@ const Shop = () => {
                   Запись, сведение, продакшн
                 </h2>
                 <p className="mt-3 text-sm sm:text-base text-gray-300 max-w-xl">
-                  Клик по карточке откроет подробности и точный состав услуги,
-                  а кнопка сразу ведёт на бронирование.
+                  Клик по карточке откроет подробности и точный состав услуги, а
+                  кнопка сразу ведёт на бронирование.
                 </p>
               </div>
 
@@ -198,8 +192,6 @@ const Shop = () => {
             </div>
           </div>
         </section>
-
-        {/* ПЛАГИНЫ И СОФТ */}
         <section className="py-20 bg-gradient-to-b from-neutral-950 via-black/90 to-neutral-950 border-t border-white/5">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">

@@ -21,7 +21,13 @@ const Cart = () => {
 
   const handleCheckout = () => {
     setAuthWarning("");
-    if (!requireAuth(() => setAuthWarning("Войдите через тестовый профиль или регистрацию, чтобы перейти к оплате."))) {
+    if (
+      !requireAuth(() =>
+        setAuthWarning(
+          "Войдите через тестовый профиль или регистрацию, чтобы перейти к оплате.",
+        ),
+      )
+    ) {
       return;
     }
     setShowPayment(true);
@@ -41,10 +47,14 @@ const Cart = () => {
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400">корзина</p>
+              <p className="text-[11px] uppercase tracking-[0.25em] text-orange-400">
+                корзина
+              </p>
               <h1 className="text-3xl font-extrabold">Ваши покупки</h1>
             </div>
-            <p className="text-sm text-gray-300">Все кнопки активны: можно удалить или оформить заказ.</p>
+            <p className="text-sm text-gray-300">
+              Все кнопки активны: можно удалить или оформить заказ.
+            </p>
           </div>
 
           {authWarning && (
@@ -54,7 +64,9 @@ const Cart = () => {
           )}
 
           {cartItems.length === 0 && !checkedOut && (
-            <p className="mt-8 text-gray-400">Пока пусто. Добавьте услуги или плагины из магазина.</p>
+            <p className="mt-8 text-gray-400">
+              Пока пусто. Добавьте услуги или плагины из магазина.
+            </p>
           )}
 
           {checkedOut && (
@@ -70,7 +82,9 @@ const Cart = () => {
                 className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-zinc-950/70 border border-orange-500/20 rounded-2xl p-5"
               >
                 <div className="space-y-1">
-                  <p className="text-xs uppercase tracking-[0.2em] text-orange-300">{item.type}</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-orange-300">
+                    {item.type}
+                  </p>
                   <h3 className="text-lg font-semibold">{item.name}</h3>
                   <p className="text-sm text-gray-400">{item.tag}</p>
                 </div>
@@ -78,8 +92,12 @@ const Cart = () => {
                 <div className="flex items-center gap-6">
                   <div className="text-right">
                     <p className="text-sm text-gray-400">Количество</p>
-                    <p className="text-xl font-semibold text-orange-300">{item.quantity} шт.</p>
-                    <p className="text-sm text-gray-400">{item.price} / единица</p>
+                    <p className="text-xl font-semibold text-orange-300">
+                      {item.quantity} шт.
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      {item.price} / единица
+                    </p>
                   </div>
                   <button
                     onClick={() => removeFromCart(item.id)}
@@ -96,7 +114,9 @@ const Cart = () => {
             <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <p className="text-sm text-gray-400">Предварительная сумма</p>
-                <p className="text-2xl font-bold text-orange-400">{total.toLocaleString("ru-RU")} ₽</p>
+                <p className="text-2xl font-bold text-orange-400">
+                  {total.toLocaleString("ru-RU")} ₽
+                </p>
               </div>
               <div className="flex gap-3">
                 <button
@@ -130,20 +150,29 @@ const Cart = () => {
               ✕
             </button>
 
-            <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400 mb-2">оплата (демо)</p>
-            <h3 className="text-2xl font-bold mb-1">Проверка оплаты без списания</h3>
+            <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400 mb-2">
+              оплата (демо)
+            </p>
+            <h3 className="text-2xl font-bold mb-1">
+              Проверка оплаты без списания
+            </h3>
             <p className="text-sm text-gray-300 mb-4">
-              Мы показываем заглушку: ничего не списывается. Используйте тестовую карту, чтобы завершить оформление и увидеть результат.
+              Мы показываем заглушку: ничего не списывается. Используйте
+              тестовую карту, чтобы завершить оформление и увидеть результат.
             </p>
 
             <div className="space-y-3 text-sm text-gray-200 bg-black/50 border border-orange-500/20 rounded-2xl p-4">
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">Покупатель</span>
-                <span className="font-semibold text-orange-200">{user?.username || "Тестовый пользователь"}</span>
+                <span className="font-semibold text-orange-200">
+                  {user?.username || "Тестовый пользователь"}
+                </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">Сумма</span>
-                <span className="font-semibold text-orange-200">{total.toLocaleString("ru-RU")} ₽</span>
+                <span className="font-semibold text-orange-200">
+                  {total.toLocaleString("ru-RU")} ₽
+                </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">Метод</span>
@@ -169,8 +198,12 @@ const Cart = () => {
                 </div>
               </div>
               <div className="space-y-2 text-xs text-gray-400">
-                <p>Тестовые реквизиты: 0000 0000 0000 0000, дата 12/34, CVC 000.</p>
-                <p>При нажатии ниже заказ считается оплаченным и очищает корзину.</p>
+                <p>
+                  Тестовые реквизиты: 0000 0000 0000 0000, дата 12/34, CVC 000.
+                </p>
+                <p>
+                  При нажатии ниже заказ считается оплаченным и очищает корзину.
+                </p>
               </div>
             </div>
 

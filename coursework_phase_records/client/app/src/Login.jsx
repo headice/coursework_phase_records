@@ -26,7 +26,10 @@ const Login = () => {
       return setError("Укажите почту и пароль, чтобы войти.");
     }
 
-    const result = login({ email: formData.email, password: formData.password });
+    const result = login({
+      email: formData.email,
+      password: formData.password,
+    });
 
     if (!result.success) {
       setError(result.error || "Не удалось войти. Попробуйте снова.");
@@ -53,12 +56,10 @@ const Login = () => {
 
       <main className="flex-1">
         <section className="relative w-full overflow-hidden border-b border-orange-500/20">
-          {/* фон */}
           <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(249,115,22,0.14),transparent_32%),radial-gradient(circle_at_80%_25%,rgba(249,115,22,0.12),transparent_30%)]" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-10">
-            {/* Заголовок */}
             <div className="space-y-4 max-w-2xl">
               <p className="text-[11px] uppercase tracking-[0.26em] text-orange-400">
                 вход
@@ -74,11 +75,8 @@ const Login = () => {
                 локально для демонстрации фронтенда.
               </p>
             </div>
-
-            {/* КАРТОЧКА — одна колонка, без пустой правой части */}
             <div className="bg-zinc-950/70 border border-orange-500/25 rounded-3xl shadow-[0_24px_90px_-50px_rgba(249,115,22,0.8)] p-6 sm:p-8 max-w-3xl">
               <form onSubmit={handleSubmit} className="space-y-4 w-full">
-                {/* Email */}
                 <label className="flex flex-col gap-2 text-sm text-gray-200 w-full">
                   Email
                   <input
@@ -91,8 +89,6 @@ const Login = () => {
                     className="w-full rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
                   />
                 </label>
-
-                {/* Пароль */}
                 <label className="flex flex-col gap-2 text-sm text-gray-200 w-full">
                   Пароль
                   <input
@@ -105,8 +101,6 @@ const Login = () => {
                     className="w-full rounded-xl bg-black/60 border border-orange-500/30 px-4 py-3 text-sm focus:border-orange-400 outline-none"
                   />
                 </label>
-
-                {/* Сообщения */}
                 {error && (
                   <p className="text-sm text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-xl px-4 py-3">
                     {error}
@@ -118,8 +112,6 @@ const Login = () => {
                     {success}
                   </p>
                 )}
-
-                {/* Кнопки — одинаковая ширина, без пустот */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 w-full">
                   <button
                     type="submit"
