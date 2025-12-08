@@ -51,9 +51,6 @@ export default function ServiceDetails() {
                 <p className="text-[11px] uppercase tracking-[0.24em] text-orange-400">услуга студии</p>
                 <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
                   {service.title}
-                  <span className="block text-orange-500 text-2xl sm:text-3xl font-semibold">
-                    {service.subtitle}
-                  </span>
                 </h1>
                 <p className="text-sm sm:text-base text-gray-200 max-w-2xl leading-relaxed">
                   {service.fullDescription}

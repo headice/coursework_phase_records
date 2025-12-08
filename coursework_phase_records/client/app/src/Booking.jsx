@@ -125,9 +125,6 @@ export default function Booking() {
                   <h2 className="text-xl font-semibold">
                     {selectedService.title}
                   </h2>
-                  <p className="text-sm text-gray-300 mt-2">
-                    {selectedService.subtitle}
-                  </p>
                   <div className="mt-3 text-sm text-gray-400 space-y-1">
                     <p>Сроки: {selectedService.duration}</p>
                     <p>Стоимость: {selectedService.price}</p>

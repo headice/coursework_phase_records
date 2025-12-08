@@ -38,9 +38,8 @@ const ServiceCard = memo(function ServiceCard({
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent" />
 
       <div className="absolute inset-0 flex flex-col justify-end p-6 text-left">
-        <h3 className="text-xl font-semibold mb-2">
-          <span className="text-orange-400">{service.title} </span>
-          <span className="text-white">{service.subtitle}</span>
+        <h3 className="text-xl font-semibold mb-2 text-orange-400">
+          {service.title}
         </h3>
         <p className="text-gray-200 text-sm leading-relaxed opacity-90">
           {service.shortDescription}
