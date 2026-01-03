@@ -1,0 +1,17 @@
+# Dependency directories
+node_modules
+**/node_modules
+
+# Build outputs
+build
+**/build
+
+# Version control
+.git
+.gitignore
+
+# Misc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
