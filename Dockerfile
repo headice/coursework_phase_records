@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install dependencies using the lockfile for reproducible installs
 COPY coursework_phase_records/client/app/package*.json ./
-RUN npm ci
+RUN npm install
 
 # Copy source and build the production bundle
 COPY coursework_phase_records/client/app ./
