@@ -30,23 +30,20 @@ const Home = () => {
       <Header />
 
       <main className="flex-1">
-        {/* HERO / MELON-STYLE */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-[#0b0b0d] to-black">
-          {/* Фоновые градиенты */}
+        {/* HERO */}
+        <section className="relative overflow-hidden bg-gradient-to-b from-black via-[#0d0d10] to-black">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[url('./img/zvukovoi-mikser-v-studii-bg2.jpg')] bg-cover bg-center opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-br from-black via-black/90 to-orange-900/40" />
-            <div className="absolute -left-40 top-1/4 w-80 h-80 rounded-full bg-orange-500/10 blur-3xl" />
-            <div className="absolute right-[-120px] bottom-0 w-96 h-96 rounded-full bg-orange-500/15 blur-3xl" />
+            <div className="absolute -left-40 top-1/4 h-80 w-80 rounded-full bg-orange-500/10 blur-3xl" />
+            <div className="absolute bottom-0 right-[-120px] h-96 w-96 rounded-full bg-orange-500/15 blur-3xl" />
           </div>
 
-          {/* Контент */}
-          <div className="relative z-10 w-full max-w-6xl px-4 md:px-8 lg:px-10 py-16 sm:py-20 lg:py-24 flex flex-col items-center md:items-start gap-10 text-center md:text-left">
-            {/* Текст */}
-            <div className="w-full max-w-3xl space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/40 bg-black/60 text-[11px] uppercase tracking-[0.25em] text-orange-300 mb-6">
-                <span className="w-2 h-2 rounded-full bg-orange-500" />
-                студия звукозаписи
+          <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 md:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:px-10 lg:py-24">
+            <div className="space-y-8 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/40 bg-black/60 px-3 py-1 text-[11px] uppercase tracking-[0.25em] text-orange-300">
+                <span className="h-2 w-2 rounded-full bg-orange-500" />
+                phase records studio
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl font-extrabold leading-tight tracking-tight">
@@ -54,59 +51,77 @@ const Home = () => {
                 <span className="text-orange-500"> RECORDS</span>
               </h1>
 
-              <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl md:max-w-xl">
-                Место, где треки становятся релизами. Запись, сведение, мастеринг,
-                авторский продакшн и техническая поддержка на каждом этапе выхода
-                релиза.
+              <p className="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl lg:mx-0 mx-auto">
+                Мы делаем музыку ближе к живому звучанию: без конвейера, с
+                вниманием к артисту, идее и эмоции трека. Запись, сведение,
+                мастеринг и продакшн в одном процессе.
               </p>
 
-              {/* Быстрые фичи */}
-              <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-300">
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  запись / сведение / мастеринг
-                </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  авторский продакшн
-                </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur">
-                  релизы на всех площадках
-                </span>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {[
+                  "запись / сведение / мастеринг",
+                  "авторский продакшн",
+                  "подготовка релиза",
+                ].map((feature) => (
+                  <div
+                    key={feature}
+                    className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-xs uppercase tracking-[0.16em] text-gray-300 backdrop-blur"
+                  >
+                    {feature}
+                  </div>
+                ))}
               </div>
 
-              {/* CTA-кнопки */}
-              <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4">
+              <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
                 <button
                   onClick={goToBooking}
-                  className="px-10 py-3 rounded-full bg-white text-black hover:bg-orange-500 hover:text-black text-sm md:text-base font-semibold uppercase tracking-wide transition"
+                  className="rounded-full bg-white px-10 py-3 text-sm font-semibold uppercase tracking-wide text-black transition hover:bg-orange-500 md:text-base"
                 >
                   Забронировать время
                 </button>
 
                 <button
                   onClick={scrollToServices}
-                  className="px-6 py-3 rounded-full border border-white/10 bg-black/70 hover:border-orange-400 text-xs md:text-sm uppercase tracking-wide text-gray-200 transition"
+                  className="rounded-full border border-white/10 bg-black/70 px-6 py-3 text-xs uppercase tracking-wide text-gray-200 transition hover:border-orange-400 md:text-sm"
                 >
                   Смотреть услуги
                 </button>
               </div>
+            </div>
 
-              {/* Немного «соцдоказательств» */}
-              <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-6 text-xs text-gray-400">
-                <div>
-                  <p className="text-lg font-semibold text-white">100+</p>
-                  <p>выпущенных релизов</p>
-                </div>
-                <div>
-                  <p className="text-lg font-semibold text-white">24/7</p>
-                  <p>онлайн-бронирование</p>
-                </div>
-                <div>
-                  <p className="text-lg font-semibold text-white">Hi-End</p>
-                  <p>оборудование студии</p>
+            <div className="flex w-full items-stretch">
+              <div className="w-full rounded-3xl border border-orange-500/35 bg-zinc-950/80 p-6 backdrop-blur-xl">
+                <p className="text-xs uppercase tracking-[0.22em] text-orange-300">
+                  как мы работаем
+                </p>
+                <div className="mt-6 space-y-5">
+                  {[
+                    {
+                      title: "01 / Встреча и бриф",
+                      text: "Обсуждаем идею, сроки и атмосферу будущего релиза.",
+                    },
+                    {
+                      title: "02 / Производство",
+                      text: "Записываем, редактируем и собираем цельный саунд.",
+                    },
+                    {
+                      title: "03 / Финализация",
+                      text: "Делаем мастер и готовим трек к публикации на площадках.",
+                    },
+                  ].map((step) => (
+                    <div
+                      key={step.title}
+                      className="border-b border-white/10 pb-4 last:border-none last:pb-0"
+                    >
+                      <p className="text-sm font-semibold tracking-wide text-white">
+                        {step.title}
+                      </p>
+                      <p className="mt-1 text-sm text-gray-300">{step.text}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-
           </div>
         </section>
 
@@ -120,8 +135,7 @@ const Home = () => {
 
           <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-14">
             {/* Левая часть */}
-            <div className="flex-1 relative">
-              {/* Вертикальная акцентная линия слева */}
+            <div className="relative flex-1">
               <div className="hidden md:block absolute -left-5 top-0 bottom-0 w-px bg-zinc-700/40" />
 
               <p className="text-xs uppercase tracking-[0.25em] text-orange-400 mb-3">
@@ -134,13 +148,12 @@ const Home = () => {
               </h2>
 
               <p className="text-lg text-gray-300 leading-relaxed">
-                Phase Records — это пространство для артистов, саунд-продюсеров и
-                брендов. Мы берём на себя всё: от записи демо до полной
-                продакшн-поддержки релиза и дистрибуции.
+                Phase Records — уютная рабочая студия для артистов,
+                саунд-продюсеров и брендов. Мы сопровождаем проект от демо до
+                готового релиза: честно, прозрачно и без лишнего пафоса.
               </p>
             </div>
 
-            {/* Правая часть */}
             <div className="flex-1 w-full">
               <div
                 className="
@@ -155,8 +168,8 @@ const Home = () => {
                 <div className="absolute inset-0 bg-main-info-pattern bg-cover bg-center" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-orange-900/40" />
 
-                <div className="absolute bottom-4 left-4 px-3 py-1 text-[11px] uppercase tracking-[0.2em] rounded-full bg-black/70 border border-orange-500/40 text-orange-200">
-                  live room
+                <div className="absolute bottom-4 left-4 rounded-full border border-orange-500/40 bg-black/70 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-orange-200">
+                  live session room
                 </div>
               </div>
             </div>
@@ -184,16 +197,16 @@ const Home = () => {
                 консультация
               </p>
               <h2 className="text-4xl lg:text-5xl font-extrabold leading-tight">
-                Готовы сделать
+                Обсудим задачу
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600">
-                  реализовать вашу идею?
+                <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+                  и соберём план под вас
                 </span>
               </h2>
 
               <p className="mt-6 text-gray-300 text-lg leading-relaxed">
-                Напишите нам — команда подберёт формат работы и инженера под
-                задачу.
+                Напишите нам — команда подберёт формат работы, инженера и
+                комфортный график сессий под ваш проект.
               </p>
             </div>
 
